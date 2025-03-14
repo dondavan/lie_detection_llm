@@ -18,7 +18,7 @@ st.set_page_config(page_title="VLD", page_icon="random")
 #db_qa = detadb.Base("Info")
 model_name = "google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = TFAutoModelForSeq2SeqLM.from_pretrained(r'~./Users/luccapfrunder/Desktop/Models')
+model = TFAutoModelForSeq2SeqLM.from_pretrained('/Users/luccapfrunder/Desktop/Models/liedetectionllm')
 
 with open("style.css") as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
