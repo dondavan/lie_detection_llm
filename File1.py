@@ -133,7 +133,7 @@ def instructions_page():
 
     if st.button("Next"):
         update_progress()
-        st.session_state.page = 'experiment'
+        st.session_state.page = 'specific_instructions'
         st.experimental_rerun() 
 
 def specific_instructions_page():
@@ -177,7 +177,7 @@ def specific_instructions_page():
 
     if st.button("Next"):
         update_progress()
-        st.session_state.page = 'training_procedure'
+        st.session_state.page = 'experiment'
         st.experimental_rerun()
 
 def experiment_page():
@@ -332,6 +332,8 @@ elif st.session_state.page == 'consent':
     consent_page()
 elif st.session_state.page == 'instructions':
     instructions_page()
+elif st.session_state.page == 'specific_instructions':
+    specific_instructions_page()
 #elif st.session_state.page == 'example':
  #   example_page()
 elif st.session_state.page == 'experiment':
