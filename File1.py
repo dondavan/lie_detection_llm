@@ -12,7 +12,7 @@ import numpy as np
 import os
 
 
-st.set_page_config(page_title="VLD", page_icon="random")
+st.set_page_config(page_title="APA", page_icon="random")
 #chiave = "a0x3no1k_b2trPQTiKCBh1uduRo91GU5rPwGY7DQD"
 #detadb = Dt(chiave)
 #db_qa = detadb.Base("Info")
@@ -62,9 +62,9 @@ def show_progress_bar():
 def welcome_page(): 
     show_progress_bar()
 
-    st.title("Welcome to the _'UNMASK THE LIES'_ study")
-    st.write("""In this study, we are investigating how people make decisions when evaluating the veracity of statements. 
-             We will now give you detailed instructions. **Please read them carefully.**
+    st.title("Welcome to the _'ADVERSARIAL PARAPHRASING ATTACKS ON AUTOMATED DECEPTION CLASSIFIERS'_ study")
+    st.write("""This study explores how robust automated deception classifiers are to modifications - paraphrases - to a statement they classify. 
+             After you have consented to participate in this experiment, we will give you detailed instructions. **Please read them carefully.**
              \nOnce you complete the experiment, you will be redirected to Prolific.""")
     
     if st.button("Next"):
@@ -78,7 +78,7 @@ def consent_page():
 
     st.title("Informed Consent")
 
-    st.write("This study is conducted by researchers at Tilburg University (The Netherlands)")
+    st.write("This study is conducted by researchers at Tilburg University and the University of Amsterdam (The Netherlands)")
     st.write("Name and email address of the principal investigator: Dr Bennett Kleinberg, bennett.kleinberg@tilburguniversity.edu")
     st.markdown(
     """
@@ -99,7 +99,7 @@ def consent_page():
     st.write("""Please click on "Accept" if you want to give your consent and proceed with the experiment.
               Otherwise, click  on "Deny" and the experiment ends.""")
     
-    col1, col2, col3 = st.columns([1,6,1])
+    col1, col2, col3 = st.columns([2,6,2])
     with col1:
         if st.button("Accept"):
             st.session_state.consent_data = "Accepted"
@@ -117,15 +117,19 @@ def instructions_page():
     show_progress_bar()
 
     st.title("Instructions")
-    st.write(":book: In this experiment, you will read **twelve** short statements about past experiences that are either truthful or lies.")
-    st.write("Your task is to guess whether each statement is truthful :white_check_mark: or a lie :lying_face:")
-    st.write("These statements were randomly selected from a larger dataset where half of all statements are truthful, and half of them are lies.")
+    st.write(":book: In this experiment, you will read **XXX** short statements about past experiences. Each statement is either truthful :white_check_mark: or a lie :lying_face:.")
+    st.write("Your task is to paraphrase these statements to deceive an machine-learning-based lie detection classifier. Specifically, you'll rewrite the statements while maintaining their original meaning, grammatical correctness, and naturalness, aiming to mislead the classifier into incorrectly labeling them as truthful or deceptive (depending on their initial credibility).")
+    st.write("A natural rewrite preserves fluency, readability, and coherence.")
+    st.write("These statements were randomly selected from a larger dataset in which half of all statements are truthful, and half of them are lies.")
 
     st.write("""To help you with your task, we provide you with the predictions of a state-of-the-art lie detection algorithm based on artificial intelligence (AI) :robot_face:
                 This algorithm shows better performance in distinguishing truth from lies than the average human.""")
-    st.write("You'll see an example on the next pages.")
+    st.write("You will receive feedback showing how confident the AI is in its classification after each rewrite. Your goal is to maximize the change in the AI's confidence score (lower the percentage shown for the initial statement) through your paraphrases.")
+    st.write("The feedback is shown in terms of a percentage that the statement belongs to either for the target categories (lie or truth). 0 percent indicates low confidence, while 100 percent indicates high confidence.")
+    st.write("In total you will have 10 attempts to change the confidence score as much as possible. If you manage to lower the initial confidence shown (percentage) to lower than 50 percent, you will be instructed to move on to the next statement.")
+    st.write("You'll undergo a guided training procedure to make you familiar with the task and will be provided with examples on the next pages.")
     
-    st.write("**Please note that you should read the statements carefully, as after the task you will also have to take a quick quiz. The quiz serves to validate your participation.**")
+    st.write("**Please note that you should read and paraphrase the statements carefully, as after the task you will have to take a quick quizz. The quiz serves to validate your participation.**")
 
     if st.button("Next"):
         update_progress()
