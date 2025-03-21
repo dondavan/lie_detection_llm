@@ -40,3 +40,10 @@ transformers
 
 # start streamlit
 python3 -m streamlit whatever
+
+# requirement
+deta==1.1.0
+numpy==1.24.1
+python-dotenv==0.21.1
+streamlit==1.17.0
+transformers==4.26.0
