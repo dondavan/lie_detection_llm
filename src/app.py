@@ -27,9 +27,6 @@ model = TFAutoModelForSeq2SeqLM.from_pretrained('../liedetectionllm')
 with open("./style/style.css") as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
-# Define progress bar
-total_steps = 22
-
 
 # Page Navigation Logic
 if 'page' not in st.session_state:
