@@ -40,7 +40,7 @@ elif st.session_state.page == 'instructions':
 elif st.session_state.page == 'specific_instructions':
     pages.specific_instructions_page()
 elif st.session_state.page == 'stepwise_training':
-    pages.specific_instructions_page()
+    pages.stepwise_training_page()
 elif st.session_state.page == 'experiment':
     pages.experiment_page()
 #elif st.session_state.page == 'final_questions':
