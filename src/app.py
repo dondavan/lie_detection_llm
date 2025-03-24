@@ -42,6 +42,8 @@ elif st.session_state.page == 'stepwise_training':
     pages.stepwise_training_page()
 elif st.session_state.page == 'task_1_content':
     pages.task_1_content_page()
+elif st.session_state.page == 'task_2_content':
+    pages.task_2_content_page()
 elif st.session_state.page == 'experiment':
     pages.experiment_page()
 #elif st.session_state.page == 'final_questions':
