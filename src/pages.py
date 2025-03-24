@@ -39,7 +39,6 @@ def welcome_page():
     if st.button("Next"):
         update_progress()
         st.session_state.page = 'consent'
-        st.experimental_rerun()
     
 
 def consent_page():
@@ -74,13 +73,11 @@ def consent_page():
             st.session_state.consent_data = "Accepted"
             update_progress()
             st.session_state.page = 'instructions'
-            st.experimental_rerun()
     with col3:
         if st.button("Deny"):
             st.session_state.consent_data = "Denied"
             update_progress()
             st.session_state.page = 'end'
-            st.experimental_rerun()
 
 def instructions_page():
     show_progress_bar()
@@ -102,8 +99,7 @@ def instructions_page():
 
     if st.button("Next"):
         update_progress()
-        st.session_state.page = 'specific_instructions'
-        st.experimental_rerun() 
+        st.session_state.page = 'specific_instructions' 
 
 def specific_instructions_page():
     show_progress_bar()
@@ -147,7 +143,6 @@ def specific_instructions_page():
     if st.button("Next"):
         update_progress()
         st.session_state.page = 'stepwise_training'
-        st.experimental_rerun()
 
 def stepwise_training_page():
     show_progress_bar()
@@ -158,7 +153,6 @@ def stepwise_training_page():
     if st.button("Next"):
         update_progress()
         st.session_state.page = 'experiment'
-        st.experimental_rerun()
 
 def experiment_page():
     show_progress_bar()
@@ -171,7 +165,7 @@ def experiment_page():
     #st.markdown(obj, unsafe_allow_html=True)
 
     def load_statements():
-        return pd.read_csv("hippocorpus_test_set.csv", sep=";")
+        return pd.read_csv("../data/hippocorpus_test_set.csv", sep=";")
     
     # Load statements and select a random one
     statements = load_statements()
@@ -286,7 +280,6 @@ def feedback_page():
        # submit_to_sheet_2(combined_data)
         st.write("Thank you for your feedback.")
         st.session_state.page = 'end'
-        st.experimental_rerun()
 
 def end_page():
     update_progress()
