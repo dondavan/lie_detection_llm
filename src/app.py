@@ -20,7 +20,6 @@ st.set_page_config(page_title="APA", page_icon="random")
 #db_qa = detadb.Base("Info")
 model_name = "google/flan-t5-base"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
-
 #Changed to relative path
 model = TFAutoModelForSeq2SeqLM.from_pretrained('../liedetectionllm')
 
@@ -41,6 +40,8 @@ elif st.session_state.page == 'specific_instructions':
     pages.specific_instructions_page()
 elif st.session_state.page == 'stepwise_training':
     pages.stepwise_training_page()
+elif st.session_state.page == 'task_1_content':
+    pages.task_1_content_page()
 elif st.session_state.page == 'experiment':
     pages.experiment_page()
 #elif st.session_state.page == 'final_questions':

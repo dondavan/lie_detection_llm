@@ -152,7 +152,56 @@ def stepwise_training_page():
 
     if st.button("Next"):
         update_progress()
-        st.session_state.page = 'experiment'
+        st.session_state.page = 'task_1_content'
+
+def chatloop(frase):
+    """
+    Process the input statement using the model and return the prediction and confidence score.
+    """
+    tokenize = tokenizer(frase, return_tensors='tf')
+    for i in [tokenize]:
+        h = model.generate(**i)
+        decoded_pred = tokenizer.batch_decode(h, skip_special_tokens=True)
+        h1 = model.generate(**i, return_dict_in_generate=True, output_scores=True)
+        prob = np.max(np.exp(h1.scores) / np.sum(np.exp(h1.scores))) * 100  # Convert to percentage
+    return decoded_pred[0], prob
+
+def task_1_content_page():
+    show_progress_bar()
+
+    st.title("Task 1: Write a Lie")
+    st.write("**Please write a lie.**")
+
+    # Create containers for dynamic updates
+    input_container = st.empty()
+    submit_cont = st.empty()
+    feedback_container = st.empty()
+    progr_cont = st.empty()
+
+    # Input for the user to write their statement
+    user_input = input_container.text_area("Write your statement here:")
+
+    # Submit button to process the input
+    if submit_cont.button("Submit Task 1"):
+        if user_input.strip():  # Ensure the input is not empty
+            st.session_state.task_1_input = user_input
+            update_progress()
+
+            # Generate feedback using the model
+            risposta, prob = chatloop(user_input)
+            feedback_container.markdown(
+                f"### Model Feedback\n"
+                f"The model predicts that your statement is classified as **{'Truthful' if risposta == 'T' else 'Deceptive'}**.\n"
+                f"**Confidence Score:** {prob:.2f}%"
+            )
+            progr_cont.progress(int(prob))  # Display progress bar for confidence score
+
+            # Add a "Next" button to proceed to the next page
+            if st.button("Next"):
+                st.session_state.page = 'experiment'
+                st.experimental_rerun()
+        else:
+            st.warning("Please write a lie before submitting.")
 
 def experiment_page():
     show_progress_bar()
