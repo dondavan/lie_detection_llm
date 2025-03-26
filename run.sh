@@ -1,1 +1,1 @@
-python3 -m streamlit run src/app.py
+python3 -m streamlit run src/app.py --server.port=8080
