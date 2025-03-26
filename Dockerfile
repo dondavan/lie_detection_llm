@@ -16,4 +16,4 @@ RUN pip3 install -r build/requirements.txt
 EXPOSE 8080
 
 
-ENTRYPOINT ["streamlit", "run", "src/app.py", "--server.port=8080", "--server.address=0.0.0.0"]
+ENTRYPOINT ["sh", "run.sh"]

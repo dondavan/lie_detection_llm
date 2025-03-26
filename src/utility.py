@@ -10,10 +10,8 @@ import time
 import numpy as np
 import os
 
-
-model_name = "google/flan-t5-base"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-#Changed to relative path
+#models and tokenizer
+tokenizer = AutoTokenizer.from_pretrained('models/flan')
 model = TFAutoModelForSeq2SeqLM.from_pretrained('models/liedetectionllm')
 
 def chatloop(frase):
