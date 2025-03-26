@@ -15,40 +15,33 @@ import pages as pages
 
 
 st.set_page_config(page_title="APA", page_icon="random")
-#chiave = "a0x3no1k_b2trPQTiKCBh1uduRo91GU5rPwGY7DQD"
-#detadb = Dt(chiave)
-#db_qa = detadb.Base("Info")
-model_name = "google/flan-t5-base"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-#Changed to relative path
-model = TFAutoModelForSeq2SeqLM.from_pretrained('../liedetectionllm')
 
 with open("./style/style.css") as f:
     st.markdown("<style>{}</style>".format(f.read()), unsafe_allow_html=True)
 
 
-# Page Navigation Logic
-if 'page' not in st.session_state:
-    st.session_state.page = 'welcome'
-if st.session_state.page == 'welcome':
-    pages.welcome_page()
-elif st.session_state.page == 'consent':
-    pages.consent_page()
-elif st.session_state.page == 'instructions':
-    pages.instructions_page()
-elif st.session_state.page == 'specific_instructions':
-    pages.specific_instructions_page()
-elif st.session_state.page == 'stepwise_training':
-    pages.stepwise_training_page()
-elif st.session_state.page == 'task_1_content':
-    pages.task_1_content_page()
-elif st.session_state.page == 'task_2_content':
-    pages.task_2_content_page()
-elif st.session_state.page == 'experiment':
-    pages.experiment_page()
-#elif st.session_state.page == 'final_questions':
- #   final_questions()
-#elif st.session_state.page == 'feedback':
- #   feedback_page()
-elif st.session_state.page == 'end':
-     pages.end_page()
+welcome_page = st.Page("pages/welcome_page.py")
+consent_page = st.Page("pages/consent_page.py")
+instructions_page = st.Page("pages/instructions_page.py")
+end_page = st.Page("pages/end_page.py")
+experiment_intro_page = st.Page("pages/experiment_intro_page.py")
+experiment_step_page = st.Page("pages/experiment_step_page.py")
+feedback_page = st.Page("pages/feedback_page.py")
+specific_instructions_page = st.Page("pages/specific_instructions_page.py")
+stepwise_training_page = st.Page("pages/stepwise_training_page.py")
+task_1_content_page = st.Page("pages/task_1_content_page.py")
+task_2_content_page = st.Page("pages/task_2_content_page.py")
+
+pg = st.navigation([welcome_page,
+                    consent_page,
+                    instructions_page,
+                    end_page,
+                    experiment_intro_page,
+                    experiment_step_page,
+                    feedback_page,
+                    specific_instructions_page,
+                    stepwise_training_page,
+                    task_1_content_page,
+                    task_2_content_page],position = "hidden")
+pg.run()
+
