@@ -3,9 +3,9 @@ import pandas as pd
 from utility import chatloop, load_statements
 import time
 
-st.title("LLM based Verbal Lie Detection")
+st.title("Task 4: Switch the Credibility with Contraints")
 
-def load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,paraphrase_classfication = "X",classfication_score = -1):
+def load_instrcution(text_container_1,text_container_2,text_container_3,input_container,submit_container,paraphrase_classfication = "X",classfication_score = -1):
     # Display the statement and instructions
     if st.session_state['current_ori_statement_condition'] == "truthful":
         condition_1 = "truthful"
@@ -14,7 +14,7 @@ def load_instruction(text_container_1,text_container_2,text_container_3,input_co
         condition_1 = "deceptive"
         condition_2 = "truthful"
 
-    text_container_1.markdown(f"This is a {condition_1} statement. Rewrite this statement so that it appears {condition_2} to an automated deception classifier. Please maintain the original meaning of the statement, ensure grammaticality, and that your rewrite appears natural.")
+    text_container_1.markdown(f"This is a {condition_1} statement. Rewrite this statement so that it appears {condition_2} to an automated deception classifier. **Please maintain the original meaning of the statement, ensure grammaticality, and that your rewrite appears natural.**")
     text_container_2.markdown(f"Original statement: {st.session_state['current_ori_statement']}")
 
     if paraphrase_classfication == "T":
@@ -28,10 +28,9 @@ def goto_exp_step():
     st.session_state['current_repharsed_text'] = str(input_txt)
     st.session_state['goto_step_page'] = 1
 
-
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
-    st.switch_page("pages/experiment_step_page.py")
+    st.switch_page("pages/feedback_task_4_page.py")
 
 # Page description
 text_container_1 = st.empty()
@@ -61,7 +60,6 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
 # Initial classification
 paraphrase_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 # Display instruction
-load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,
+load_instrcution(text_container_1,text_container_2,text_container_3,input_container,submit_container,
                 paraphrase_classfication = paraphrase_classfication,
                 classfication_score = classfication_score)
-

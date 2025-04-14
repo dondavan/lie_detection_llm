@@ -27,10 +27,14 @@ end_page = st.Page("pages/end_page.py")
 experiment_intro_page = st.Page("pages/experiment_intro_page.py")
 experiment_step_page = st.Page("pages/experiment_step_page.py")
 feedback_page = st.Page("pages/feedback_page.py")
-specific_instructions_page = st.Page("pages/specific_instructions_page.py")
+main_task_page = st.Page("pages/main_task_page.py")
 stepwise_training_page = st.Page("pages/stepwise_training_page.py")
 task_1_content_page = st.Page("pages/task_1_content_page.py")
 task_2_content_page = st.Page("pages/task_2_content_page.py")
+task_3_content_page = st.Page("pages/task_3_content_page.py")
+feedback_task_3_page = st.Page("pages/feedback_task_3_page.py")
+task_4_content_page = st.Page("pages/task_4_content_page.py")
+feedback_task_4_page = st.Page("pages/feedback_task_4_page.py")
 
 pg = st.navigation([welcome_page,
                     consent_page,
@@ -39,9 +43,13 @@ pg = st.navigation([welcome_page,
                     experiment_intro_page,
                     experiment_step_page,
                     feedback_page,
-                    specific_instructions_page,
+                    main_task_page,
                     stepwise_training_page,
                     task_1_content_page,
-                    task_2_content_page],position = "hidden")
+                    task_2_content_page,
+                    task_3_content_page,
+                    feedback_task_3_page,
+                    task_4_content_page,
+                    feedback_task_4_page],position = "hidden")
 pg.run()
 

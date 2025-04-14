@@ -1,4 +1,5 @@
 import streamlit as st
+from utility import chatloop
 
 st.title("Task 2: Write a Truth")
 st.write("**Please write a truth.**")
@@ -16,10 +17,9 @@ user_input = input_container.text_area("Write your statement here:")
 if submit_cont.button("Submit Task 2"):
     if user_input.strip():  # Ensure the input is not empty
         st.session_state.task_2_input = user_input
-        update_progress()
 
         # Generate feedback using the model
-        #risposta, prob = chatloop(user_input)
+        risposta, prob = chatloop(user_input)
         feedback_container.markdown(
             f"### Model Feedback\n"
             f"The model predicts that your statement is classified as **{'Truthful' if risposta == 'T' else 'Deceptive'}**.\n"
@@ -31,5 +31,5 @@ if submit_cont.button("Submit Task 2"):
 
 # Add a "Next" button to proceed to the next page
 if st.button("Next"):
-    st.switch_page("pages/experiment_intro_page.py")
+    st.switch_page("pages/task_3_content_page.py")
     #st.experimental_rerun()
