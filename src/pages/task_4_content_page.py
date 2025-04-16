@@ -5,7 +5,7 @@ import time
 
 st.title("Task 4: Switch the Credibility with Contraints")
 
-def load_instrcution(text_container_1,text_container_2,text_container_3,input_container,submit_container,paraphrase_classfication = "X",classfication_score = -1):
+def load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,paraphrase_classfication = "X",classfication_score = -1):
     # Display the statement and instructions
     if st.session_state['current_ori_statement_condition'] == "truthful":
         condition_1 = "truthful"
@@ -60,6 +60,6 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
 # Initial classification
 paraphrase_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 # Display instruction
-load_instrcution(text_container_1,text_container_2,text_container_3,input_container,submit_container,
+load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,
                 paraphrase_classfication = paraphrase_classfication,
                 classfication_score = classfication_score)
