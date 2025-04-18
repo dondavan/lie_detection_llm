@@ -9,3 +9,4 @@ st.write("""This study investigated how robust automated deception classifiers a
         If you have any questions, feel free to contact us at:  
         bennet.kleinberg@tilburguniversity.edu """)
 st.write("Thank you for your valuable contribution.")
+st.write("You will now be redirected to Prolific.")

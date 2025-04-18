@@ -81,7 +81,7 @@ feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_contain
 
 if 'goto_new_statement' in st.session_state and st.session_state['goto_new_statement'] == 1:
     st.session_state['goto_new_statement'] = 0
-    st.switch_page("pages/experiment_intro_page.py")
+    st.switch_page("pages/experiment_intro_2_page.py")
 
 if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
     nav_col1 = st.empty()

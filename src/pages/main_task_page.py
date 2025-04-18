@@ -13,4 +13,4 @@ st.markdown(
 )
 
 if st.button("Next"):
-    st.switch_page("pages/experiment_intro_page.py")
+    st.switch_page("pages/experiment_intro_1_page.py")

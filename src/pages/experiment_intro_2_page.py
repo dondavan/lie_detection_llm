@@ -41,20 +41,20 @@ def goto_exp_step():
         st.warning(f"Your rewritten statement must be within 20 words of the original statement's length ({original_tokens} words). Your input has {input_tokens} words.")
         return
     
-    if st.session_state.main_task_1_submit_count < 10:  # Check if the limit is reached
+    if st.session_state.main_task_2_submit_count < 10:  # Check if the limit is reached
         st.session_state['current_repharsed_text'] = str(input_txt)
         st.session_state['goto_step_page'] = 1
-        st.session_state.main_task_1_submit_count += 1
+        st.session_state.main_task_2_submit_count += 1
     else:
         st.error("You have reached the maximum number of rewrites for this statement (10). Please proceed to the next page.")
 
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
-    st.switch_page("pages/experiment_step_page.py")
+    st.switch_page("pages/experiment_step_2_page.py")
 
 # Initialize submission count in session state
-if 'main_task_1_submit_count' not in st.session_state:
-    st.session_state.main_task_1_submit_count = 0
+if 'main_task_2_submit_count' not in st.session_state:
+    st.session_state.main_task_2_submit_count = 0
 
 # Page description
 text_container_1 = st.empty()
