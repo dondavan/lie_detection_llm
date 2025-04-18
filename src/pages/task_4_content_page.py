@@ -5,7 +5,7 @@ import time
 
 st.title("Task 4: Switch the Credibility with Contraints")
 
-def load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,paraphrase_classfication = "X",classfication_score = -1):
+def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container, submit_container, paraphrase_classfication="X", classfication_score=-1):
     # Display the statement and instructions
     if st.session_state['current_ori_statement_condition'] == "truthful":
         condition_1 = "truthful"
@@ -14,33 +14,60 @@ def load_instruction(text_container_1,text_container_2,text_container_3,input_co
         condition_1 = "deceptive"
         condition_2 = "truthful"
 
-    text_container_1.markdown(f"This is a {condition_1} statement. Rewrite this statement so that it appears {condition_2} to an automated deception classifier. **Please maintain the original meaning of the statement, ensure grammaticality, and that your rewrite appears natural.**")
-    text_container_2.markdown(f"Original statement: {st.session_state['current_ori_statement']}")
+    text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
+   
+    feedback_container.markdown(
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
+        f"Credibility Score: **{classfication_score:.2f}%**"
+    )
+    progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
 
-    if paraphrase_classfication == "T":
-        text_container_3.markdown("The paragraph is true. The credibility score is {}%, represented by the coloured bar below. Please evaluate whether the classification is wrong or correct.".format(classfication_score))
-    elif paraphrase_classfication == "F":
-        text_container_3.markdown("The paragraph is false. The credibility score is {}%, represented by the coloured bar below. Please evaluate whether the classification is wrong or correct.".format(classfication_score))
-    
+    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to an automated deception classifier. Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. You have 10 attempts to rewrite. Try to decrease the initial credibility score as much as possible. If you manage to flip the class (truth to lie or lie to truth), please proceed to the next page.")
+    original_tokens = len(st.session_state['current_ori_statement'].split())
+    text_container_3.markdown(f"Your rewritten statement must be within 20 words of the original statement's length **({original_tokens} words)**.")
+    text_container_4.markdown(f"**WARNING:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
+
     st.session_state['new_statement'] = 0
 
 def goto_exp_step():
-    st.session_state['current_repharsed_text'] = str(input_txt)
-    st.session_state['goto_step_page'] = 1
+    if not input_txt.strip():  # Check if the input is empty
+        st.warning("Please write a statement before submitting.")
+        return
+    
+    # Token length constraint
+    original_tokens = len(st.session_state['current_ori_statement'].split())
+    input_tokens = len(input_txt.split())
+    if abs(input_tokens - original_tokens) > 20:  # Check if the input is within 20 tokens of the original
+        st.warning(f"Your rewritten statement must be within 20 words of the original statement's length ({original_tokens} words). Your input has {input_tokens} words.")
+        return
+    
+    if st.session_state.task_4_submit_count < 10:  # Check if the limit is reached
+        st.session_state['current_repharsed_text'] = str(input_txt)
+        st.session_state['goto_step_page'] = 1
+        st.session_state.task_4_submit_count += 1
+    else:
+        st.error("You have reached the maximum number of rewrites for this statement (10). Please proceed to the next page.")
 
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
     st.switch_page("pages/feedback_task_4_page.py")
 
+# Initialize submission count in session state
+if 'task_4_submit_count' not in st.session_state:
+    st.session_state.task_4_submit_count = 0
+
 # Page description
 text_container_1 = st.empty()
+feedback_container = st.empty()
+progr_cont = st.empty()
 text_container_2 = st.empty()
 text_container_3 = st.empty()
+text_container_4 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
 input_txt = input_container.text_area("Write your text below:")
 nav_col1, nav_col2 = st.columns(2,gap="medium")
-st.button("SUBMIT",on_click=goto_exp_step)
+st.button("Submit Task 4",on_click=goto_exp_step)
 
 # Page data
 paraphrase_classfication = "X"
@@ -60,6 +87,6 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
 # Initial classification
 paraphrase_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 # Display instruction
-load_instruction(text_container_1,text_container_2,text_container_3,input_container,submit_container,
+load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container,submit_container,
                 paraphrase_classfication = paraphrase_classfication,
                 classfication_score = classfication_score)

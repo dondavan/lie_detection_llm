@@ -18,7 +18,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
    
     feedback_container.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
-        f"**Credibility Score:** {classfication_score:.2f}%"
+        f"Credibility Score: **{classfication_score:.2f}%**"
     )
     progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
 
@@ -28,6 +28,9 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     st.session_state['new_statement'] = 0
 
 def goto_exp_step():
+    if not input_txt.strip():  # Check if the input is empty
+        st.warning("Please write a statement before submitting.")
+        return
     if st.session_state.task_3_submit_count < 5:  # Check if the limit is reached
         st.session_state['current_repharsed_text'] = str(input_txt)
         st.session_state['goto_step_page'] = 1
@@ -45,10 +48,10 @@ if 'task_3_submit_count' not in st.session_state:
 
 # Page description
 text_container_1 = st.empty()
-text_container_2 = st.empty()
-text_container_3 = st.empty()
 feedback_container = st.empty()
 progr_cont = st.empty()
+text_container_2 = st.empty()
+text_container_3 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
 input_txt = input_container.text_area("Write your text below:")

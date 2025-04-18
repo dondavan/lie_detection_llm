@@ -5,7 +5,7 @@ import time
 
 st.title("Task 3: Switch the Credibility")
 
-def feedback_page(text_container_1, text_container_2, text_container_3, text_container_4, input_container, submit_container, nav_col_1, nav_col_2,
+def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
     
     # Classification for the original statement
@@ -15,19 +15,25 @@ def feedback_page(text_container_1, text_container_2, text_container_3, text_con
     
     text_container_1.markdown(f"**Original statement:** {current_ori_statement}")
 
-    if ori_classification == "T":
-        text_container_2.markdown("This statement is **true**. The credibility score is **{}%**, represented by the coloured bar below.".format(ori_score))
-    elif ori_classification == "F":
-        text_container_2.markdown("This statement is **false**. The credibility score is **{}%**, represented by the coloured bar below.".format(ori_score))
+    feedback_container_1.markdown(
+        f"The AI classifies this statement as **{'Truthful' if ori_classification == 'T' else 'Deceptive'}**.\n"
+        f"Credibility Score: **{ori_score:.2f}%**"
+    )
+    progr_cont_1.progress(int(ori_score)) 
 
-    text_container_3.markdown(f"**Your statement:** {current_repharsed_text}")
+    text_container_2.markdown(f"**Your statement:** {current_repharsed_text}")
 
-    if paraphrase_classfication == "T":
-        text_container_4.markdown("Your statement is **true**. The credibility score is **{}%**, represented by the coloured bar below.".format(classfication_score))
-    elif paraphrase_classfication == "F":
-        text_container_4.markdown("Your statement is **false**. The credibility score is **{}%**, represented by the coloured bar below.".format(classfication_score))
-
+    feedback_container_2.markdown(
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
+        f"Credibility Score: **{classfication_score:.2f}%**"
+    )
+    progr_cont_2.progress(int(classfication_score)) 
+    
 def click_submit():
+    if not input_txt.strip():  # Check if the input is empty
+        st.warning("Please write a statement before submitting.")
+        return
+    
     if st.session_state.task_3_submit_count < 5:  # Check if the limit is reached
         st.session_state['current_repharsed_text'] = str(input_txt)
         st.session_state['submit_view'] = 0
@@ -47,9 +53,11 @@ def click_next():
 
 # Page description
 text_container_1 = st.empty()
+feedback_container_1 = st.empty()
+progr_cont_1 = st.empty()
 text_container_2 = st.empty()
-text_container_3 = st.empty()
-text_container_4 = st.empty()
+feedback_container_2 = st.empty()
+progr_cont_2 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
 nav_col1, nav_col2 = st.columns(2, gap="medium")
@@ -59,7 +67,7 @@ current_ori_statement = st.session_state['current_ori_statement']
 current_repharsed_text = st.session_state['current_repharsed_text']
 
 # Display feedback
-feedback_page(text_container_1, text_container_2, text_container_3, text_container_4, input_container, submit_container, nav_col1, nav_col2,
+feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col1, nav_col2,
               current_ori_statement=current_ori_statement, 
               current_repharsed_text=current_repharsed_text)
 
