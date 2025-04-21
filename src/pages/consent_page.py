@@ -6,6 +6,9 @@ st.write("This study is conducted by researchers at Tilburg University and the U
 st.write("Name and email address of the principal investigator: Dr Bennett Kleinberg, bennett.kleinberg@tilburguniversity.edu")
 st.markdown(
 """
+By proceeding, you voluntarily agree to participate in this study. 
+This does not interfere with your right to withdraw from this study at any time without an explanation.
+
 The study was reviewed and approved by the university’s ethics committee.
 Please proceed if you agree to the following:
 
