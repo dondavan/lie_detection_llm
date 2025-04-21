@@ -5,7 +5,7 @@ import time
 
 st.title("Main Task")
 
-def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container, submit_container, paraphrase_classfication="X", classfication_score=-1):
+def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container, submit_container, paraphrase_classification="X", classification_score=-1):
     # Display the statement and instructions
     if st.session_state['current_ori_statement_condition'] == "truthful":
         condition_1 = "truthful"
@@ -17,10 +17,10 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
    
     feedback_container.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{classfication_score:.2f}%**"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
+        f"Credibility Score: **{classification_score:.2f}%**"
     )
-    progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
+    progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
     text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to an automated deception classifier. Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. You have 10 attempts to rewrite. Try to decrease the initial credibility score as much as possible. If you manage to flip the class (truth to lie or lie to truth), please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())
@@ -41,13 +41,10 @@ def goto_exp_step():
         st.warning(f"Your rewritten statement must be within 20 words of the original statement's length ({original_tokens} words). Your input has {input_tokens} words.")
         return
     
-    if st.session_state.main_task_2_submit_count < 10:  # Check if the limit is reached
-        st.session_state['current_repharsed_text'] = str(input_txt)
-        st.session_state['goto_step_page'] = 1
-        st.session_state.main_task_2_submit_count += 1
-    else:
-        st.error("You have reached the maximum number of rewrites for this statement (10). Please proceed to the next page.")
-
+    st.session_state['current_repharsed_text'] = str(input_txt)
+    st.session_state['goto_step_page'] = 1
+    st.session_state.main_task_2_submit_count += 1
+    
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
     st.switch_page("pages/experiment_step_2_page.py")
@@ -70,8 +67,8 @@ nav_col1, nav_col2 = st.columns(2,gap="medium")
 st.button("Submit",on_click=goto_exp_step)
 
 # Page data
-paraphrase_classfication = "X"
-classfication_score = -1
+paraphrase_classification = "X"
+classification_score = -1
 
 # Load statements and select a random one
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
@@ -85,8 +82,8 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
     st.session_state['current_ori_statement_condition'] = condition
 
 # Initial classification
-paraphrase_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
+paraphrase_classification, classification_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 # Display instruction
 load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container,submit_container,
-                paraphrase_classfication = paraphrase_classfication,
-                classfication_score = classfication_score)
+                paraphrase_classification = paraphrase_classification,
+                classification_score = classification_score)
