@@ -3,7 +3,7 @@ import pandas as pd
 from utility import chatloop, load_statements
 import time
 
-st.title("Task 4: Switch the Credibility with Contraints")
+st.title("Task 4: Switch the Credibility with Constraints")
 
 def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container, submit_container, paraphrase_classification="X", classification_score=-1):
     # Display the statement and instructions
@@ -22,7 +22,10 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
-    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to an automated deception classifier. Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. You have 10 attempts to rewrite. Try to decrease the initial credibility score as much as possible. If you manage to flip the class (truth to lie or lie to truth), please proceed to the next page.")
+    text_container_2.markdown(
+        f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+        "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
+        "You have 10 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())
     text_container_3.markdown(f"Your rewritten statement must be within 20 words of the original statement's length **({original_tokens} words)**.")
     text_container_4.markdown(f"**WARNING:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
@@ -74,7 +77,7 @@ classification_score = -1
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statements = load_statements()
     random_statement = statements.sample(n=1).iloc[0]
-    statement_text = random_statement['text']
+    statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
     #states

@@ -16,7 +16,7 @@ if 'questions_data' not in st.session_state:
     st.session_state.questions_data = []
 
 # Question 1: Motivation
-st.write("**1. How much were you motivated to perform well?**")
+st.write("**1. How motivated were you to perform well?**")
 st.session_state.motivation_scale = st.slider("0 = Not at all, 10 = Very much", min_value=0, max_value=10, value=st.session_state.motivation_scale, step=1)
 
 # Question 2: Difficulty

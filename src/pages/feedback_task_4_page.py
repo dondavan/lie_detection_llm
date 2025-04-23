@@ -5,8 +5,14 @@ import time
 
 st.title("Task 4: Switch the Credibility with Contraints")
 
-def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
+def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, text_container_3, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
+    if st.session_state['current_ori_statement_condition'] == "truthful":
+        condition_1 = "truthful"
+        condition_2 = "deceptive"
+    else:
+        condition_1 = "deceptive"
+        condition_2 = "truthful"
     # Classification for the original statement
     ori_classification, ori_score = chatloop(frase=current_ori_statement)
     # Classification for the rephrased statement
@@ -27,6 +33,13 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
         f"Credibility Score: **{classification_score:.2f}%**"
     )
     progr_cont_2.progress(int(classification_score))
+
+     # Conditionally display text_container_3 after "Retry" is clicked
+    if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
+        text_container_3.markdown(
+            f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+            "Please maintain the statement's **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent, and readable."
+        )
 
     # Return classifications to determine button visibility
     return ori_classification, paraphrase_classification 
@@ -60,6 +73,7 @@ progr_cont_1 = st.empty()
 text_container_2 = st.empty()
 feedback_container_2 = st.empty()
 progr_cont_2 = st.empty()
+text_container_3 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
 nav_col1, nav_col2 = st.columns(2, gap="medium")
@@ -71,7 +85,7 @@ current_repharsed_text = st.session_state['current_repharsed_text']
 # Display feedback
 ori_classification, paraphrase_classification = feedback_page(
     text_container_1, feedback_container_1, progr_cont_1, 
-    text_container_2, feedback_container_2, progr_cont_2, 
+    text_container_2, feedback_container_2, progr_cont_2, text_container_3,
     input_container, submit_container, nav_col1, nav_col2,
     current_ori_statement=current_ori_statement, 
     current_repharsed_text=current_repharsed_text

@@ -7,7 +7,6 @@ st.title("Task 3: Switch the Credibility")
 
 def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
-    
     # Classification for the original statement
     ori_classification, ori_score = chatloop(frase=current_ori_statement)
     # Initial classification
@@ -28,7 +27,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
         f"Credibility Score: **{classfication_score:.2f}%**"
     )
     progr_cont_2.progress(int(classfication_score)) 
-    
+
 def click_submit():
     if not input_txt.strip():  # Check if the input is empty
         st.warning("Please write a statement before submitting.")

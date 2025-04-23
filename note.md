@@ -49,3 +49,6 @@ python-dotenv==0.21.1
 streamlit==1.17.0
 transformers==4.26.0
 
+text_container_3.markdown(
+        f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+        "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.")

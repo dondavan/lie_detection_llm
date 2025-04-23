@@ -22,8 +22,8 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     )
     progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
 
-    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to an automated deception classifier. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
-    text_container_3.markdown(f"**WARNING:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
+    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to the AI. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
+    text_container_3.markdown(f"**WARNING:** Due to delay with the AI model, you have to click the submit button a second time after a brief period.")
 
     st.session_state['new_statement'] = 0
 
@@ -66,7 +66,7 @@ classfication_score = -1
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statements = load_statements()
     random_statement = statements.sample(n=1).iloc[0]
-    statement_text = random_statement['text']
+    statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
     #states

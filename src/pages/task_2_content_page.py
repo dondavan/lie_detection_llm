@@ -5,7 +5,7 @@ st.title("Task 2: Write a Truth")
 st.write("**Please write a truth.**")
 
 st.write("A truth is a statement that presents information that is believed to be correct with no intent to mislead.")
-st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. This allows you to explore how the AI interprets and classifies lies.")
+st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies truths.")
 
 # Initialize submission count in session state
 if 'task_2_submit_count' not in st.session_state:
