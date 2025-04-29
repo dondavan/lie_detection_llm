@@ -18,17 +18,18 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
    
     feedback_container.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{classification_score:.2f}%**"
+        f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
+    opposite_classification = 'Deceptive' if paraphrase_classification == 'T' else 'Truthful'
     text_container_2.markdown(
-        f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+        f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
         "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
         "You have 10 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())
     text_container_3.markdown(f"Your rewritten statement must be within 20 words of the original statement's length **({original_tokens} words)**.")
-    text_container_4.markdown(f"**WARNING:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
+    text_container_4.markdown(f"**NOTE:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
 
     st.session_state['new_statement'] = 0
 
@@ -65,7 +66,7 @@ text_container_3 = st.empty()
 text_container_4 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
-input_txt = input_container.text_area("Write your text below:")
+input_txt = input_container.text_area("Write your text below:", height=250)
 nav_col1, nav_col2 = st.columns(2,gap="medium")
 st.button("Submit",on_click=goto_exp_step)
 

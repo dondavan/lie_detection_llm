@@ -4,7 +4,7 @@ from utility import chatloop
 st.title("Task 2: Write a Truth")
 st.write("**Please write a truth.**")
 
-st.write("A truth is a statement that presents information that is believed to be correct with no intent to mislead.")
+st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
 st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies truths.")
 
 # Initialize submission count in session state
@@ -46,4 +46,4 @@ if submit_cont.button("Submit Task 2"):
 # Add a "Next" button to proceed to the next page
 if st.button("Next"):
     st.switch_page("pages/task_3_content_page.py")
-    #st.experimental_rerun()
+    

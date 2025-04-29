@@ -3,7 +3,7 @@ import pandas as pd
 from utility import chatloop, load_statements
 import time
 
-st.title("Task 4: Switch the Credibility with Contraints")
+st.title("Task 4: Fool the AI with Contraints")
 
 def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, text_container_3, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
@@ -22,7 +22,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
 
     feedback_container_1.markdown(
         f"The AI classifies this statement as **{'Truthful' if ori_classification == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{ori_score:.2f}%**"
+        f"Confidence Score: **{ori_score:.2f}%**"
     )
     progr_cont_1.progress(int(ori_score)) 
 
@@ -30,14 +30,14 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
 
     feedback_container_2.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"  # Fixed spelling here
-        f"Credibility Score: **{classification_score:.2f}%**"
+        f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont_2.progress(int(classification_score))
-
+    opposite_classification = 'Deceptive' if ori_classification == 'T' else 'Truthful'
      # Conditionally display text_container_3 after "Retry" is clicked
     if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
         text_container_3.markdown(
-            f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+            f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
             "Please maintain the statement's **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent, and readable."
         )
 
@@ -99,19 +99,19 @@ if ori_classification != paraphrase_classification:
     # Show success message and "Next" button only
     st.success("You have successfully flipped the class the AI thought the statement belonged to. Please proceed to the next statement.")
     next_butt = nav_col2.button("Next", on_click=click_next)
-elif st.session_state.task_4_submit_count >= 10:
-    st.warning("You have reached the maximum number of rewrites (10) for this statement. Please proceed to the next statement.")
+elif st.session_state.task_4_submit_count >= 5:
+    st.warning("You have reached the maximum number of rewrites (5) for this statement. Please proceed to the next statement.")
     next_butt = nav_col2.button("Next", on_click=click_next)
 else:
     # Show "Retry" and "Submit" buttons if classifications are the same
     if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
         nav_col1 = st.empty()
         nav_col2 = st.empty()
-        input_txt = input_container.text_area("Write your text below:")
+        input_txt = input_container.text_area("Write your text below:", height=250)
         submit_butt = submit_container.button('Submit', on_click=click_submit)
 
     if 'submit_view' not in st.session_state or st.session_state['submit_view'] == 0:
         retry_butt = nav_col1.button("Retry", on_click=click_retry)
 
 # Display submission count
-st.info(f"Submissions used: {st.session_state.task_4_submit_count}/10")
+st.info(f"Submissions used: {st.session_state.task_4_submit_count}/5")

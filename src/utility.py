@@ -29,3 +29,6 @@ def chatloop(frase):
 
 def load_statements():
     return pd.read_csv("data/hippocorpus_test_truncated.csv", sep=",")
+
+def load_statements_2():
+    return pd.read_csv("data/hippocorpus_training_truncated.csv", sep=",")

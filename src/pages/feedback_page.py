@@ -24,12 +24,12 @@ st.write("**2. How difficult did you find the study?**")
 st.session_state.difficulty_scale = st.slider("0 = Very easy, 10 = Very difficult", min_value=0, max_value=10, value=st.session_state.difficulty_scale, step=1)
 
 # Question 3: Strategies
-st.write("What strategies did you use to complete the task and flip the classification label?")
-st.session_state.strategies = st.text_area("Strategies", value=st.session_state.strategies)
+st.write("What strategies did you use to complete the task and flip the class the AI predicted the statement to belong to?")
+st.session_state.strategies = st.text_area("Strategies", value=st.session_state.strategies, height=200)
 
 # Optional Feedback
 st.write("Optionally, you can leave any remarks or feedback you have about this experiment. Please click on the button below to submit your feedback.")
-st.session_state.feedback = st.text_area("Feedback", value=st.session_state.feedback)
+st.session_state.feedback = st.text_area("Feedback", value=st.session_state.feedback, height=200)
 
 # Submit Feedback Button
 if st.button("Submit Feedback"):

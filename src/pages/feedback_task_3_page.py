@@ -3,7 +3,7 @@ import pandas as pd
 from utility import chatloop, load_statements
 import time
 
-st.title("Task 3: Switch the Credibility")
+st.title("Task 3: Fool the AI")
 
 def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
@@ -16,7 +16,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
 
     feedback_container_1.markdown(
         f"The AI classifies this statement as **{'Truthful' if ori_classification == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{ori_score:.2f}%**"
+        f"Confidence Score: **{ori_score:.2f}%**"
     )
     progr_cont_1.progress(int(ori_score)) 
 
@@ -24,7 +24,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
 
     feedback_container_2.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{classfication_score:.2f}%**"
+        f"Confidence Score: **{classfication_score:.2f}%**"
     )
     progr_cont_2.progress(int(classfication_score)) 
 
@@ -78,7 +78,7 @@ if 'goto_new_statement' in st.session_state and st.session_state['goto_new_state
 if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
     nav_col1 = st.empty()
     nav_col2 = st.empty()
-    input_txt = input_container.text_area("Write your text below:")
+    input_txt = input_container.text_area("Write your text below:", height=250)
     submit_butt = submit_container.button('Submit',on_click = click_submit)
 
 if 'submit_view' not in st.session_state or st.session_state['submit_view'] == 0:

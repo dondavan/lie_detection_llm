@@ -5,7 +5,7 @@ st.write("You are about to start the main task. Here are some pointers of what t
 
 st.markdown(
     """
-    - **Understand the Task**: Your goal is to paraphrase statements to lower the AI's confidence in its classification or change the class it predicts the statement to belong to.
+    - **Understand the Task**: Your goal is to paraphrase statements to lower the AI's confidence score or change the class (truthful or deceptive) it predicts the statement to belong to.
     - **Maintain Meaning**: Ensure your paraphrases preserve the original meaning of the statement.
     - **Use of Language**: Use natural and grammatically correct language to rewrite the statements.
     - **Tips**: Avoid simply reordering words; Use synonyms or restructure sentences.

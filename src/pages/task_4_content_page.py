@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
-from utility import chatloop, load_statements
+from utility import chatloop, load_statements, load_statements_2
 import time
 
-st.title("Task 4: Switch the Credibility with Constraints")
+st.title("Task 4: Fool the AI with Constraints")
 
 def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container, submit_container, paraphrase_classification="X", classification_score=-1):
     # Display the statement and instructions
@@ -18,17 +18,17 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
    
     feedback_container.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
-        f"Credibility Score: **{classification_score:.2f}%**"
+        f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
     text_container_2.markdown(
         f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
         "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
-        "You have 10 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
+        "You have 5 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())
     text_container_3.markdown(f"Your rewritten statement must be within 20 words of the original statement's length **({original_tokens} words)**.")
-    text_container_4.markdown(f"**WARNING:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
+    text_container_4.markdown(f"**NOTE:** Due to delay with the AI model, you might have to click the submit button a second time after a brief period.")
 
     st.session_state['new_statement'] = 0
 
@@ -65,7 +65,7 @@ text_container_3 = st.empty()
 text_container_4 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
-input_txt = input_container.text_area("Write your text below:")
+input_txt = input_container.text_area("Write your text below:", height=250)
 nav_col1, nav_col2 = st.columns(2,gap="medium")
 st.button("Submit Task 4",on_click=goto_exp_step)
 
@@ -73,14 +73,15 @@ st.button("Submit Task 4",on_click=goto_exp_step)
 paraphrase_classification = "X"
 classification_score = -1
 
-# Load statements and select a random one
+# Load statements and select a fixed "deceptive" statement
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
-    statements = load_statements()
-    random_statement = statements.sample(n=1).iloc[0]
+    statements = load_statements_2()  
+    truthful_statements = statements[statements['condition'] == 'truthful']  
+    random_statement = truthful_statements.iloc[2]  # Select the first statement to ensure consistency
     statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
-    #states
+    # Save states
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
 
