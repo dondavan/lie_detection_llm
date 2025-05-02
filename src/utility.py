@@ -9,6 +9,8 @@ from transformers import TFAutoModelForSeq2SeqLM, AutoTokenizer
 import time
 import numpy as np
 import os
+from google.cloud.sql.connector import Connector, IPTypes
+import sqlalchemy
 
 #models and tokenizer
 tokenizer = AutoTokenizer.from_pretrained('models/flan')
@@ -32,3 +34,37 @@ def load_statements():
 
 def load_statements_2():
     return pd.read_csv("data/hippocorpus_training_truncated.csv", sep=",")
+
+
+connector = Connector()
+
+def getconn():
+    conn = connector.connect(
+        "paraphrasing-attacks:europe-west4:paraphraseluca", # Cloud SQL Instance Connection Name
+        "pymysql",
+        user="paraphraseluca",
+        password="papihugh",
+        db="demo",
+        ip_type=IPTypes.PUBLIC # IPTypes.PRIVATE for private IP
+    )
+    return conn
+
+def insert_to_sql(parameters):
+
+    pool = sqlalchemy.create_engine(
+    "mysql+pymysql://",
+    creator=getconn,
+    )
+
+    with pool.connect() as db_conn:
+        # insert data into our ratings table
+        insert_stmt = sqlalchemy.text(
+            "INSERT INTO testing_table (pid, os_id, os, os_c, os_cp, paras, paras_c, paras_cp) "
+            "VALUES (:pid, :os_id, :os, :os_c, :os_cp, :paras, :paras_c, :paras_cp)",
+        )
+
+        # insert entries into table
+        db_conn.execute(insert_stmt, parameters=parameters)
+
+        # commit transactions
+        db_conn.commit()
