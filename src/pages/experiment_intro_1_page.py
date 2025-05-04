@@ -18,7 +18,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
    
     feedback_container.markdown(
         f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
-        f"Confidence Score: **{classification_score:.2f}%**"
+        f"Confidence Score: **{classification_score*100:.2f}%**"
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
