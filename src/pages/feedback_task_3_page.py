@@ -22,7 +22,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
 
     # Insert into cloud sql
     parameters = {  "pid": "8088",
-                    "os_id": "2222",
+                    "os_id": st.session_state['statement_id'],
                     "os": st.session_state['current_ori_statement'],
                     "os_c":st.session_state['ori_classification'],
                     "os_cp":st.session_state['ori_score'],

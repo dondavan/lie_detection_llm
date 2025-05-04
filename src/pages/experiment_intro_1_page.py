@@ -83,6 +83,7 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
     condition = statement['condition']
 
     #states
+    st.session_state['statement_id'] = statement['index']
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
 
