@@ -29,7 +29,7 @@ def chatloop(frase):
     outputs = model(**inputs)
     probabilities = outputs.logits.softmax(dim=-1)  
     predicted_label = probabilities.argmax().item()
-            
+
     # Get the class probability 
     class_prob = probabilities[0, predicted_label].item()
     return 1-predicted_label, class_prob*100
@@ -46,7 +46,18 @@ def chatloop(frase):
 
 
 def load_statements():
-    return pd.read_csv("data/hippocorpus_test_truncated.csv", sep=",")
+    with open("data/count.txt", "r+") as f:
+        #go to last line
+        for line in f:
+            pass
+        last_line = line
+
+        count = last_line
+        count= int(float(count))
+        count = count + 1
+        f.write(str(count)+'\n')
+        f.close()
+        return pd.read_csv("data/hippocorpus_test_truncated.csv", sep=",").iloc[count]
 
 def load_statements_2():
     return pd.read_csv("data/hippocorpus_training_truncated.csv", sep=",")
@@ -68,10 +79,15 @@ def getconn():
 def insert_to_sql(parameters):
 
     pool = sqlalchemy.create_engine(
-    "mysql+pymysql://",
-    creator=getconn,
+    "mysql+pymysql://paraphraseluca:papihugh@34.13.217.210:3306/demo"
     )
 
+    '''
+    pool = sqlalchemy.create_engine(
+    "mysql+pymysql://paraphraseluca:papihugh@34.13.217.210:3306/demo",
+    creator=getconn,
+    )
+    '''
     with pool.connect() as db_conn:
         # insert data into our ratings table
         insert_stmt = sqlalchemy.text(
