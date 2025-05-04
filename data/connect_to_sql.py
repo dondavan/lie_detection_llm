@@ -84,12 +84,14 @@ def getconn():
     return conn
 
 # create SQLAlchemy connection pool
+# username:password@host:port/database
+# mysql+pymysql://paraphraseluca:papihugh@34.13.217.210:3306/demo
 pool = sqlalchemy.create_engine(
     "mysql+pymysql://",
     creator=getconn,
 )
 
-create_table(pool)
+#create_table(pool)
 #insert(pool)
 query(pool)
 
