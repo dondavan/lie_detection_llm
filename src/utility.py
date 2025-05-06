@@ -58,12 +58,18 @@ def load_statements():
         f.write(str(count)+'\n')
         f.close()
         return pd.read_csv("data/hippocorpus_test_truncated.csv", sep=",").iloc[count]
+    
+def reset_statement_count():
+    with open("data/count.txt", "w") as f:
+        f.write('0'+'\n')
+        f.close()
 
 def load_statements_2():
     return pd.read_csv("data/hippocorpus_training_truncated.csv", sep=",")
 
 
 connector = Connector()
+
 
 def getconn():
     conn = connector.connect(
