@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from utility import chatloop, load_statements
+from utility import chatloop, load_statements, insert_to_sql
 import time
 
 st.title("Task 4: Fool the AI with Contraints")
@@ -17,6 +17,25 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     ori_classification, ori_score = chatloop(frase=current_ori_statement)
     # Classification for the rephrased statement
     paraphrase_classification, classification_score = chatloop(frase=current_repharsed_text)  # Fixed spelling here
+
+
+    st.session_state['ori_classification'] = ori_classification
+    st.session_state['ori_score'] = ori_score
+
+    st.session_state['paraphrase_classfication'] = paraphrase_classification
+    st.session_state['classfication_score'] = classification_score
+
+    # Insert into cloud sql
+    parameters = {  "pid": "8088",
+                    "os_id": st.session_state['statement_id'],
+                    "os": st.session_state['current_ori_statement'],
+                    "os_c":st.session_state['ori_classification'],
+                    "os_cp":st.session_state['ori_score'],
+                    "paras":st.session_state['current_repharsed_text'],
+                    "paras_c":st.session_state['paraphrase_classfication'],
+                    "paras_cp":st.session_state['classfication_score']}
+    
+    insert_to_sql(parameters)
     
     text_container_1.markdown(f"**Original statement:** {current_ori_statement}")
 

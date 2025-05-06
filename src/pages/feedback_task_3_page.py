@@ -13,7 +13,9 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     # Initial classification
     paraphrase_classfication, classfication_score = chatloop(frase=current_repharsed_text)
 
-    '''
+
+
+
     st.session_state['ori_classification'] = ori_classification
     st.session_state['ori_score'] = ori_score
 
@@ -31,7 +33,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
                     "paras_cp":st.session_state['classfication_score']}
     
     insert_to_sql(parameters)
-    '''
+
 
 
 

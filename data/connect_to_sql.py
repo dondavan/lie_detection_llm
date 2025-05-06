@@ -1,6 +1,8 @@
 from google.cloud.sql.connector import Connector, IPTypes
 import sqlalchemy
 
+
+
 ###########################################################
 #
 # Run these in termial first:
@@ -8,9 +10,6 @@ import sqlalchemy
 # pip3 install pymysql
 # 
 ###########################################################
-
-
-
 
 
 def insert(pool):
@@ -78,8 +77,8 @@ def getconn():
         "pymysql",
         user="paraphraseluca",
         password="papihugh",
-        db="demo",
-        ip_type=IPTypes.PUBLIC # IPTypes.PRIVATE for private IP
+        db="demo"
+        #ip_type=IPTypes.PUBLIC # IPTypes.PRIVATE for private IP
     )
     return conn
 
