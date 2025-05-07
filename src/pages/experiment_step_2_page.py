@@ -27,7 +27,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     st.session_state['classfication_score'] = classification_score
 
     # Insert into cloud sql
-    parameters = {  "pid": "8088",
+    parameters = {  "pid": st.session_state['pid'],
                     "os_id": st.session_state['statement_id'],
                     "os": st.session_state['current_ori_statement'],
                     "os_c":st.session_state['ori_classification'],
