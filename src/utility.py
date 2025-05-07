@@ -85,7 +85,8 @@ def getconn():
 def insert_to_sql(parameters):
 
     pool = sqlalchemy.create_engine(
-    "mysql+pymysql://paraphraseluca:papihugh@34.13.217.210:3306/demo"
+    "mysql+pymysql://",
+    creator=getconn,
     )
 
     '''

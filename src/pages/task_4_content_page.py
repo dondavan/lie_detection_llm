@@ -76,6 +76,7 @@ classification_score = -1
 # Load statements and select a fixed "deceptive" statement
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statements = load_statements_2()  
+    st.session_state['statement_id'] = statements['index']
     truthful_statements = statements[statements['condition'] == 'truthful']  
     random_statement = truthful_statements.iloc[2]  # Select the first statement to ensure consistency
     statement_text = random_statement['text_truncated']
