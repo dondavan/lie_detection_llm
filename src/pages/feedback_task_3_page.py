@@ -32,10 +32,10 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
                     "paras_c":st.session_state['paraphrase_classfication'],
                     "paras_cp":st.session_state['classfication_score']}
     
-    insert_to_sql(parameters)
-
-
-
+    # Only store once for each state
+    if(st.session_state['store_data'] == 0):
+        insert_to_sql(parameters)
+        st.session_state['store_data'] = 1
 
 
 
