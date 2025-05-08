@@ -78,6 +78,7 @@ classification_score = -1
 # Load statements and select a random one
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statement = load_statements()
+    st.session_state['store_data'] = 0
     #random_statement = statements.sample(n=1).iloc[0]
     statement_text = statement['text_truncated']
     condition = statement['condition']

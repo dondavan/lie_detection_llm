@@ -12,6 +12,7 @@ st.write("Importantly, your rewrite has to maintain the meaning of the original 
 st.write("**Please read and rewrite the statements carefully.**")
 
 st.session_state['pid'] = str(uuid.uuid4())
+st.session_state['store_data'] = 0
 
 if st.button("Next"):
     st.switch_page("pages/stepwise_training_page.py")

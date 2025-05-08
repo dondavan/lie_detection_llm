@@ -3,3 +3,7 @@ pandas
 transformers
 tensorflow
 tf-keras
+torch
+sqlalchemy
+cloud-sql-python-connector
+PyMySQL

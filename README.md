@@ -23,3 +23,10 @@ paraphraseluca
 
 password
 papihugh
+
+
+# How to deploy to the cloud
+> sh build_and_deploy.sh
+In terminal, select all of the y
+and for regions, always select europe-west4-a.
+the server is located in netherland( and we are in dutchland)
