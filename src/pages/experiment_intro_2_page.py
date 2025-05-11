@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from utility import chatloop, load_statements
-import time
+import datetime
 
 st.title("Main Task")
 
@@ -17,12 +17,12 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
    
     feedback_container.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 0 else 'Deceptive'}**.\n"
         f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
-    opposite_classification = 'Deceptive' if paraphrase_classification == 'T' else 'Truthful'
+    opposite_classification = 'Deceptive' if paraphrase_classification == 0 else 'Truthful'
     text_container_2.markdown(
         f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
         "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
@@ -51,6 +51,7 @@ def goto_exp_step():
     
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
+    st.session_state['paraharse_end_time'] = datetime.datetime.now()
     st.switch_page("pages/experiment_step_2_page.py")
 
 # Initialize submission count in session state
@@ -76,15 +77,16 @@ classification_score = -1
 
 # Load statements and select a random one
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
-    statements = load_statements()
+    statement = load_statements()
     st.session_state['store_data'] = 0
-    random_statement = statements.sample(n=1).iloc[0]
-    statement_text = random_statement['text_truncated']
-    condition = random_statement['condition']
+    #random_statement = statements.sample(n=1).iloc[0]
+    statement_text = statement['text_truncated']
+    condition = statement['condition']
 
     #states
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
+    st.session_state['paraharse_start_time'] = datetime.datetime.now()
 
 # Initial classification
 paraphrase_classification, classification_score = chatloop(frase=str(st.session_state['current_ori_statement']))
