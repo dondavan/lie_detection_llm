@@ -32,6 +32,8 @@ def chatloop(frase):
 
     # Get the class probability 
     class_prob = probabilities[0, predicted_label].item()
+    print(predicted_label)
+    print(class_prob*100)
     return 1-predicted_label, class_prob*100
 
     """
@@ -98,8 +100,8 @@ def insert_to_sql(parameters):
     with pool.connect() as db_conn:
         # insert data into our ratings table
         insert_stmt = sqlalchemy.text(
-            "INSERT INTO testing_table (pid, os_id, os, os_c, os_cp, paras, paras_c, paras_cp) "
-            "VALUES (:pid, :os_id, :os, :os_c, :os_cp, :paras, :paras_c, :paras_cp)",
+            "INSERT INTO testing_table_time (pid, os_id, os, os_c, os_cp, paras, paras_c, paras_cp, start_time, end_time) "
+            "VALUES (:pid, :os_id, :os, :os_c, :os_cp, :paras, :paras_c, :paras_cp, :start_time, :end_time)",
         )
 
         # insert entries into table

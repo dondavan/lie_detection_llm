@@ -30,7 +30,7 @@ if submit_cont.button("Submit Task 1"):
             risposta, prob = chatloop(user_input)
             feedback_container.markdown(
                 f"### Model Feedback\n"
-                f"The model predicts that your statement is classified as **{'Truthful' if risposta == 'T' else 'Deceptive'}**.\n"
+                f"The model predicts that your statement is classified as **{'Truthful' if risposta == 1 else 'Deceptive'}**.\n"
                 f"**Confidence Score:** {prob:.2f}%"
             )
             progr_cont.progress(int(prob))  # Display progress bar for confidence score

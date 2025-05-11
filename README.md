@@ -30,3 +30,10 @@ papihugh
 In terminal, select all of the y
 and for regions, always select europe-west4-a.
 the server is located in netherland( and we are in dutchland)
+
+
+# Condition
+It should be : 0 = deceptive, 1 = truthful 
+
+distill-bert : 1 = deceptive, 0 = truthful
+Data set : deceptive, truthful

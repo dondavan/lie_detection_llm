@@ -37,7 +37,7 @@ def insert(pool):
 def query(pool):
     with pool.connect() as db_conn:
         # query and fetch ratings table
-        results = db_conn.execute(sqlalchemy.text("SELECT * FROM testing_table")).fetchall()
+        results = db_conn.execute(sqlalchemy.text("SELECT * FROM testing_table_time")).fetchall()
 
         # show results
         for row in results:
@@ -66,6 +66,30 @@ def create_table(pool):
         # commit transaction (SQLAlchemy v2.X.X is commit as you go)
         db_conn.commit()
 
+def create_table_with_time(pool):
+    # interact with Cloud SQL database using connection pool
+    with pool.connect() as db_conn:
+        # create ratings table in our sandwiches database
+        db_conn.execute(
+            sqlalchemy.text(
+            "CREATE TABLE IF NOT EXISTS testing_table_time "
+            "( id SERIAL NOT NULL, "
+            "pid VARCHAR(255) NOT NULL, "
+            "os_id VARCHAR(255) NOT NULL, "
+            "os TEXT NOT NULL, "
+            "os_c VARCHAR(255) NOT NULL, "
+            "os_cp FLOAT NOT NULL, "
+            "paras TEXT NOT NULL, "
+            "paras_c VARCHAR(255) NOT NULL, "
+            "paras_cp FLOAT NOT NULL, "
+            "start_time DATETIME NOT NULL, "
+            "end_time DATETIME NOT NULL, "
+            "PRIMARY KEY (id));"
+            )
+        )
+
+        # commit transaction (SQLAlchemy v2.X.X is commit as you go)
+        db_conn.commit()
 
 # initialize Cloud SQL Connector
 connector = Connector()
@@ -93,6 +117,7 @@ pool = sqlalchemy.create_engine(
 #create_table(pool)
 #insert(pool)
 query(pool)
+#create_table_with_time(pool)
 
 # close Cloud SQL Connector
 connector.close()
