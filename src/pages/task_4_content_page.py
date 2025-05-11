@@ -79,7 +79,7 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
     st.session_state['store_data'] = 0
     st.session_state['statement_id'] = statements['index']
     truthful_statements = statements[statements['condition'] == 'truthful']  
-    random_statement = truthful_statements.iloc[2]  # Select the first statement to ensure consistency
+    random_statement = truthful_statements.iloc[3]  # Select the first statement to ensure consistency
     statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
