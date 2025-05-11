@@ -31,12 +31,6 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
                     "paras":st.session_state['current_repharsed_text'],
                     "paras_c":st.session_state['paraphrase_classfication'],
                     "paras_cp":st.session_state['classfication_score']}
-    
-    # Only store once for each state
-    if(st.session_state['store_data'] == 0):
-        insert_to_sql(parameters)
-        st.session_state['store_data'] = 1
-
 
 
     
@@ -44,7 +38,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     text_container_1.markdown(f"**Original statement:** {current_ori_statement}")
 
     feedback_container_1.markdown(
-        f"The AI classifies this statement as **{'Truthful' if ori_classification == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if ori_classification == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{ori_score:.2f}%**"
     )
     progr_cont_1.progress(int(ori_score)) 
@@ -52,7 +46,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     text_container_2.markdown(f"**Your statement:** {current_repharsed_text}")
 
     feedback_container_2.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{classfication_score:.2f}%**"
     )
     progr_cont_2.progress(int(classfication_score)) 

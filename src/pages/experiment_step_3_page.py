@@ -26,6 +26,9 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     st.session_state['paraphrase_classfication'] = paraphrase_classification
     st.session_state['classfication_score'] = classification_score
 
+    start_time = st.session_state['paraharse_start_time'].strftime('%Y-%m-%d %H:%M:%S')
+    end_time = st.session_state['paraharse_end_time'].strftime('%Y-%m-%d %H:%M:%S')
+
     # Insert into cloud sql
     parameters = {  "pid": st.session_state['pid'],
                     "os_id": st.session_state['statement_id'],
@@ -34,7 +37,9 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
                     "os_cp":st.session_state['ori_score'],
                     "paras":st.session_state['current_repharsed_text'],
                     "paras_c":st.session_state['paraphrase_classfication'],
-                    "paras_cp":st.session_state['classfication_score']}
+                    "paras_cp":st.session_state['classfication_score'],
+                    "start_time":start_time,
+                    "end_time":end_time}
     
     # Only store once for each statement
     if(st.session_state['store_data'] == 0):
@@ -46,7 +51,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     text_container_1.markdown(f"**Original statement:** {current_ori_statement}")
 
     feedback_container_1.markdown(
-        f"The AI classifies this statement as **{'Truthful' if ori_classification == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if ori_classification == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{ori_score:.2f}%**"
     )
     progr_cont_1.progress(int(ori_score)) 
@@ -54,12 +59,12 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     text_container_2.markdown(f"**Your statement:** {current_repharsed_text}")
 
     feedback_container_2.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont_2.progress(int(classification_score))
 
-    opposite_classification = 'Deceptive' if ori_classification == 'T' else 'Truthful'
+    opposite_classification = 'Deceptive' if ori_classification == 1 else 'Truthful'
     # Conditionally display text_container_3 after "Retry" is clicked
     if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
         text_container_3.markdown(

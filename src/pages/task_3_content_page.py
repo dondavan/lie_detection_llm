@@ -17,7 +17,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
    
     feedback_container.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 'T' else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classfication == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{classfication_score:.2f}%**"
     )
     progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
@@ -77,9 +77,9 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
     st.session_state['current_ori_statement_condition'] = condition
 
 # Initial classification
-paraphrase_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
+ori_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 
 # Display instruction
 load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, input_container,submit_container,
-                paraphrase_classfication = paraphrase_classfication,
+                paraphrase_classfication = ori_classfication,
                 classfication_score = classfication_score)
