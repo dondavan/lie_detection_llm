@@ -26,15 +26,17 @@ pool = sqlalchemy.create_engine(
 
 Header = ["id","pid","os_id","os","os_c","os_cp","paras","paras_c", "paras_cp","start_time","end_time"]
 
-def query(pool):
+table_name = "testing_table_time"
+
+def query(pool,table_name):
     with pool.connect() as db_conn:
         # query and fetch ratings table
-        results = db_conn.execute(sqlalchemy.text("SELECT * FROM testing_table_time")).fetchall()
+        results = db_conn.execute(sqlalchemy.text(f"SELECT * FROM {table_name}")).fetchall()
 
 
-    with open("exp_data/out.csv", "w", newline='') as csv_file:  # Python 3 version   
+    with open(f"exp_data/{table_name}.csv", "w", newline='') as csv_file:  # Python 3 version   
         csv_writer = csv.writer(csv_file)
         csv_writer.writerow(Header)
         csv_writer.writerows(results)
 
-query(pool)
+query(pool,table_name)
