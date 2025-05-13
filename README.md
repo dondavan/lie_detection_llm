@@ -32,8 +32,16 @@ and for regions, always select europe-west4-a.
 the server is located in netherland( and we are in dutchland)
 
 
+# How to use csv export magic button
+go into /data folder
+> python3 export_csv.py 
+csv will be in foler /data/exp_data/
+name: testing_table_time.csv
+
+
 # Condition
 It should be : 0 = deceptive, 1 = truthful 
 
 distill-bert : 1 = deceptive, 0 = truthful
 Data set : deceptive, truthful
+

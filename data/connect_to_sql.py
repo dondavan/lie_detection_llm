@@ -39,9 +39,7 @@ def query(pool):
         # query and fetch ratings table
         results = db_conn.execute(sqlalchemy.text("SELECT * FROM testing_table_time")).fetchall()
 
-        # show results
-        for row in results:
-            print(row)
+        print(results)
 
 def create_table(pool):
     # interact with Cloud SQL database using connection pool
