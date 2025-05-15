@@ -11,6 +11,8 @@ st.markdown(
     - **Tips**: Avoid simply reordering words; Use synonyms or restructure sentences.
     """
 )
+st.write("**REMINDER**: Please do not use any outside tools (e.g., Google, ChatGPT) to assist you in this task. This is a test of your own ability to fool the AI.")
+
 
 if st.button("Next"):
     st.switch_page("pages/experiment_intro_1_page.py")

@@ -10,6 +10,7 @@ st.write("Your task is to **paraphrase** these statements. Specifically, your re
 st.write("In total you will have **10** attempts per statement to decrease the **confidence score** of the AI's original prediction as much as possible. If you manage to change the original prediction (truthful or deceptive), you will immediately move on to the next statement.")
 st.write("Importantly, your rewrite has to maintain the meaning of the original statement, be grammatically correct, and appear natural. A natural rewrite describes a fluent, readable, and coherent text.")
 st.write("**Please read and rewrite the statements carefully.**")
+st.write("**IMPORTANT**: Please do not refresh the page or click the back button during the study, as it may cause errors in the system.")
 
 st.session_state['pid'] = str(uuid.uuid4())
 st.session_state['store_data'] = 0
