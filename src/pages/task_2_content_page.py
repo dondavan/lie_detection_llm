@@ -1,49 +1,85 @@
 import streamlit as st
-from utility import chatloop
+import pandas as pd
+from utility import chatloop, load_statements, load_statements_2
+import time
 
-st.title("Task 2: Write a Truth")
-st.write("**Please write a truth.**")
+st.title("Training Task 2: Fool the AI")
 
-st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
-st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies truths.")
+def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, input_container, submit_container, paraphrase_classfication="X", classfication_score=-1):
+    # Display the statement and instructions
+    if st.session_state['current_ori_statement_condition'] == "truthful":
+        condition_1 = "truthful"
+        condition_2 = "deceptive"
+    else:
+        condition_1 = "deceptive"
+        condition_2 = "truthful"
+
+    text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
+   
+    feedback_container.markdown(
+        f"The AI classifies this statement as **{'TRUTHFUL' if paraphrase_classfication == 1 else 'DECEPTIVE'}**.\n"
+        f"Confidence Score: **{classfication_score:.2f}%**"
+    )
+    progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
+
+    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to the AI. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
+    text_container_3.markdown(f"**NOTE:** Due to delay with the AI model, you have to click the submit button a second time after a brief period.")
+
+    st.session_state['new_statement'] = 0
+
+def goto_exp_step():
+    if not input_txt.strip():  # Check if the input is empty
+        st.warning("Please write a statement before submitting.")
+        return
+    if st.session_state.task_3_submit_count < 5:  # Check if the limit is reached
+        st.session_state['current_repharsed_text'] = str(input_txt)
+        st.session_state['goto_step_page'] = 1
+        st.session_state.task_3_submit_count += 1
+    else:
+        st.error("You have reached the maximum number of rewrites for this statement (5). Please proceed to the next page.")
+
+if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
+    st.session_state['goto_step_page'] = 0
+    st.switch_page("pages/feedback_task_2_page.py")
 
 # Initialize submission count in session state
-if 'task_2_submit_count' not in st.session_state:
-    st.session_state.task_2_submit_count = 0
+if 'task_3_submit_count' not in st.session_state:
+    st.session_state.task_3_submit_count = 0
 
-# Create containers for dynamic updates
-input_container = st.empty()
-submit_cont = st.empty()
+# Page description
+text_container_1 = st.empty()
 feedback_container = st.empty()
 progr_cont = st.empty()
+text_container_2 = st.empty()
+text_container_3 = st.empty()
+input_container = st.empty()
+submit_container = st.empty()
+input_txt = input_container.text_area("Write your text below:", height=250)
+nav_col1, nav_col2 = st.columns(2,gap="medium")
+st.button("Submit Task 3",on_click=goto_exp_step)
 
-# Input for the user to write their statement
-user_input = input_container.text_area("Write your statement here:")
+# Page data
+paraphrase_classfication = "X"
+classfication_score = -1
 
-# Submit button to process the input
-if submit_cont.button("Submit Task 2"):
-    if st.session_state.task_2_submit_count < 5:  # Check if the limit is reached
-        if user_input.strip():  # Ensure the input is not empty
-            st.session_state.task_2_input = user_input
+# Load statements and select a fixed "deceptive" statement
+if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
+    statements = load_statements_2()  
+    st.session_state['store_data'] = 0
+    st.session_state['statement_id'] = statements['index']
+    deceptive_statements = statements[statements['condition'] == 'deceptive']  
+    random_statement = deceptive_statements.iloc[0]  # Select the first statement to ensure consistency
+    statement_text = random_statement['text_truncated']
+    condition = random_statement['condition']
 
-            # Generate feedback using the model
-            risposta, prob = chatloop(user_input)
-            feedback_container.markdown(
-                f"### Model Feedback\n"
-                f"The model predicts that your statement is classified as **{'Truthful' if risposta == 1 else 'Deceptive'}**.\n"
-                f"**Confidence Score:** {prob:.2f}%"
-            )
-            progr_cont.progress(int(prob))  # Display progress bar for confidence score
+    # Save states
+    st.session_state['current_ori_statement'] = statement_text
+    st.session_state['current_ori_statement_condition'] = condition
 
-            # Increment the submission count
-            st.session_state.task_2_submit_count += 1
-            st.info(f"Submission {st.session_state.task_2_submit_count}/5")
-        else:
-            st.warning("Please write a truth before submitting.")
-    else:
-        st.error("You have reached the maximum number of submissions (5). Please click 'Next' to proceed.")
-        
-# Add a "Next" button to proceed to the next page
-if st.button("Next"):
-    st.switch_page("pages/task_3_content_page.py")
-    
+# Initial classification
+ori_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
+
+# Display instruction
+load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, input_container,submit_container,
+                paraphrase_classfication = ori_classfication,
+                classfication_score = classfication_score)
