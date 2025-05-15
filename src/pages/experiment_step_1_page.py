@@ -26,6 +26,8 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     st.session_state['paraphrase_classfication'] = paraphrase_classification
     st.session_state['classfication_score'] = classification_score
 
+    st.session_state['paraharse_end_time'] = datetime.datetime.now()
+
     start_time = st.session_state['paraharse_start_time'].strftime('%Y-%m-%d %H:%M:%S')
     end_time = st.session_state['paraharse_end_time'].strftime('%Y-%m-%d %H:%M:%S')
 
@@ -93,6 +95,7 @@ def click_submit():
     
 
 def click_retry():
+   st.session_state['paraharse_start_time'] = datetime.datetime.now()
    st.session_state['submit_view'] = 1
 
 def click_next():
@@ -140,7 +143,7 @@ else:
     if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
         nav_col1 = st.empty()
         nav_col2 = st.empty()
-        input_txt = input_container.text_area("Write your text below:", height=250)
+        input_txt = input_container.text_area("Write your text below:", height=250, placeholder=current_repharsed_text)
         submit_butt = submit_container.button('Submit', on_click=click_submit)
 
     if 'submit_view' not in st.session_state or st.session_state['submit_view'] == 0:

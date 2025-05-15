@@ -1,5 +1,6 @@
 import streamlit as st
-from utility import chatloop
+from utility import chatloop, insert_to_sql
+import datetime
 
 st.title("Training Task 1: Write a Lie or a Truth")
 st.write("**Please write a lie or a truth.**")
@@ -7,6 +8,9 @@ st.write("**Please write a lie or a truth.**")
 st.write("A lie is a statement of false information intended to deceive or mislead the receiver.")
 st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
 st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies lies.")
+
+
+st.session_state['paraharse_start_time'] = datetime.datetime.now()
 
 # Initialize submission count in session state
 if 'task_1_submit_count' not in st.session_state:
@@ -25,7 +29,26 @@ user_input = input_container.text_area("Write your statement here:")
 if submit_cont.button("Submit"):
     if st.session_state.task_1_submit_count < 5:  # Check if the limit is reached
         if user_input.strip():  # Ensure the input is not empty
-            st.session_state.task_1_input = user_input
+            st.session_state['current_repharsed_text'] = user_input
+
+            st.session_state['paraharse_end_time'] = datetime.datetime.now()
+
+            start_time = st.session_state['paraharse_start_time'].strftime('%Y-%m-%d %H:%M:%S')
+            end_time = st.session_state['paraharse_end_time'].strftime('%Y-%m-%d %H:%M:%S')
+
+            # Insert into cloud sql
+            parameters = {  "pid": 'task1_dummy',
+                            "os_id": 'task1_dummy',
+                            "os": 'task1_dummy',
+                            "os_c": -1,
+                            "os_cp": -1,
+                            "paras":st.session_state['current_repharsed_text'],
+                            "paras_c": -1,
+                            "paras_cp": -1,
+                            "start_time":start_time,
+                            "end_time":end_time}
+            
+            insert_to_sql(parameters)
 
             # Generate feedback using the model
             risposta, prob = chatloop(user_input)
@@ -39,6 +62,7 @@ if submit_cont.button("Submit"):
             # Increment the submission count
             st.session_state.task_1_submit_count += 1
             st.info(f"Submission {st.session_state.task_1_submit_count}/5")
+            
         else:
             st.warning("Please write a lie before submitting.")
     else:

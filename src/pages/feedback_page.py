@@ -1,4 +1,5 @@
 import streamlit as st
+from utility import insert_to_sql_feedback
 
 st.title("Feedback")
 st.write("Please provide us with feedback about the study. Your feedback is valuable to us and will help us improve our study.")
@@ -49,6 +50,14 @@ if st.button("Submit Feedback"):
             st.session_state.feedback
         ]
         
+        parameters = {  "pid": st.session_state['pid'],
+                    "motivation_scale": st.session_state.motivation_scale,
+                    "difficulty_scale": st.session_state.difficulty_scale,
+                    "strategies":st.session_state.strategies,
+                    "feedback":st.session_state.feedback}
+    
+        insert_to_sql_feedback(parameters)
+
         # Retrieve response_data and questions_data from session state
         questions_data = st.session_state.questions_data
         
