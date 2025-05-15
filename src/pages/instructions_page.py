@@ -1,5 +1,4 @@
 import streamlit as st
-import uuid
 
 st.title("Instructions")
 st.write(":book: In this experiment, you will read **3** short statements about past experiences. Each statement is either truthful :white_check_mark: or deceptive :lying_face:. The statements have been shortened and might at times end aprubtly.")
@@ -12,8 +11,6 @@ st.write("Importantly, your rewrite has to maintain the meaning of the original 
 st.write("**Please read and rewrite the statements carefully.**")
 st.write("**IMPORTANT**: Please do not refresh the page or click the back button during the study, as it may cause errors in the system.")
 
-st.session_state['pid'] = str(uuid.uuid4())
-st.session_state['store_data'] = 0
 
 if st.button("Next"):
     st.switch_page("pages/stepwise_training_page.py")

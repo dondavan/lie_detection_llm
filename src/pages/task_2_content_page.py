@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-from utility import chatloop, load_statements, load_statements_2
-import time
+from utility import chatloop, load_statements, load_statements_2, insert_to_sql
+import datetime
 
 st.title("Training Task 2: Fool the AI")
 
@@ -46,18 +46,6 @@ if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] =
 if 'task_3_submit_count' not in st.session_state:
     st.session_state.task_3_submit_count = 0
 
-# Page description
-text_container_1 = st.empty()
-feedback_container = st.empty()
-progr_cont = st.empty()
-text_container_2 = st.empty()
-text_container_3 = st.empty()
-input_container = st.empty()
-submit_container = st.empty()
-input_txt = input_container.text_area("Write your text below:", height=250)
-nav_col1, nav_col2 = st.columns(2,gap="medium")
-st.button("Submit Task 3",on_click=goto_exp_step)
-
 # Page data
 paraphrase_classfication = "X"
 classfication_score = -1
@@ -66,18 +54,32 @@ classfication_score = -1
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statements = load_statements_2()  
     st.session_state['store_data'] = 0
-    st.session_state['statement_id'] = statements['index']
     deceptive_statements = statements[statements['condition'] == 'deceptive']  
     random_statement = deceptive_statements.iloc[0]  # Select the first statement to ensure consistency
     statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
     # Save states
+    st.session_state['statement_id'] = random_statement['index']
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
 
 # Initial classification
 ori_classfication, classfication_score = chatloop(frase=str(st.session_state['current_ori_statement']))
+
+# Page description
+text_container_1 = st.empty()
+feedback_container = st.empty()
+progr_cont = st.empty()
+text_container_2 = st.empty()
+text_container_3 = st.empty()
+input_container = st.empty()
+submit_container = st.empty()
+input_txt = input_container.text_area("Write your text below:", height=250, placeholder=st.session_state['current_ori_statement'])
+nav_col1, nav_col2 = st.columns(2,gap="medium")
+st.button("Submit Task",on_click=goto_exp_step)
+
+
 
 # Display instruction
 load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, input_container,submit_container,

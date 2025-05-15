@@ -41,6 +41,33 @@ def query(pool):
 
         print(results)
 
+def query_feedback(pool):
+    with pool.connect() as db_conn:
+        # query and fetch ratings table
+        results = db_conn.execute(sqlalchemy.text("SELECT * FROM feedback_table")).fetchall()
+
+        print(results)
+
+def create_feedback_table(pool):
+    # interact with Cloud SQL database using connection pool
+    with pool.connect() as db_conn:
+        # create ratings table in our sandwiches database
+        db_conn.execute(
+            sqlalchemy.text(
+            "CREATE TABLE IF NOT EXISTS feedback_table "
+            "( id SERIAL NOT NULL, "
+            "pid VARCHAR(255) NOT NULL, "
+            "motivation_scale FLOAT NOT NULL, "
+            "difficulty_scale FLOAT NOT NULL, "
+            "strategies TEXT NOT NULL, "
+            "feedback TEXT NOT NULL, "
+            "PRIMARY KEY (id));"
+            )
+        )
+
+        # commit transaction (SQLAlchemy v2.X.X is commit as you go)
+        db_conn.commit()
+
 def create_table(pool):
     # interact with Cloud SQL database using connection pool
     with pool.connect() as db_conn:
@@ -114,7 +141,8 @@ pool = sqlalchemy.create_engine(
 
 #create_table(pool)
 #insert(pool)
-query(pool)
+#create_feedback_table(pool)
+query_feedback(pool)
 #create_table_with_time(pool)
 
 # close Cloud SQL Connector
