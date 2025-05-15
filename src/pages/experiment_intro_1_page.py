@@ -52,7 +52,6 @@ def goto_exp_step():
     
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
-    st.session_state['paraharse_end_time'] = datetime.datetime.now()
     st.switch_page("pages/experiment_step_1_page.py")
 
 # Initialize submission count in session state

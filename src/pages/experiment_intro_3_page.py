@@ -51,7 +51,6 @@ def goto_exp_step():
     
 if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] == 1:
     st.session_state['goto_step_page'] = 0
-    st.session_state['paraharse_end_time'] = datetime.datetime.now()
     st.switch_page("pages/experiment_step_3_page.py")
 
 # Initialize submission count in session state
@@ -84,6 +83,7 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
     condition = statement['condition']
 
     #states
+    st.session_state['statement_id'] = statement['index']
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
     st.session_state['paraharse_start_time'] = datetime.datetime.now()

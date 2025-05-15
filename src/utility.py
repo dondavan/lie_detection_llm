@@ -32,8 +32,6 @@ def chatloop(frase):
 
     # Get the class probability 
     class_prob = probabilities[0, predicted_label].item()
-    print(predicted_label)
-    print(class_prob*100)
     return 1-predicted_label, class_prob*100
 
     """

@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 from utility import chatloop, load_statements, insert_to_sql
-import time
+import datetime
 
 st.title("Training Task 3: Fool the AI with Contraints")
 
@@ -18,12 +18,10 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     # Classification for the rephrased statement
     paraphrase_classification, classification_score = chatloop(frase=current_repharsed_text)  # Fixed spelling here
 
+    start_time = st.session_state['paraharse_start_time'].strftime('%Y-%m-%d %H:%M:%S')
+    end_time = st.session_state['paraharse_end_time'].strftime('%Y-%m-%d %H:%M:%S')
 
-    st.session_state['ori_classification'] = ori_classification
-    st.session_state['ori_score'] = ori_score
-
-    st.session_state['paraphrase_classfication'] = paraphrase_classification
-    st.session_state['classfication_score'] = classification_score
+    st.session_state['paraharse_end_time'] = datetime.datetime.now()
 
     # Insert into cloud sql
     parameters = {  "pid": st.session_state['pid'],
@@ -33,7 +31,15 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
                     "os_cp":st.session_state['ori_score'],
                     "paras":st.session_state['current_repharsed_text'],
                     "paras_c":st.session_state['paraphrase_classfication'],
-                    "paras_cp":st.session_state['classfication_score']}
+                    "paras_cp":st.session_state['classfication_score'],
+                    "start_time":start_time,
+                    "end_time":end_time}
+    
+    # Only store once for each statement
+    if(st.session_state['store_data'] == 0):
+        insert_to_sql(parameters)
+        st.session_state['store_data'] = 1
+    
     
     
     text_container_1.markdown(f"**Original statement:** {current_ori_statement}")
@@ -76,8 +82,10 @@ def click_submit():
     st.session_state['current_repharsed_text'] = str(input_txt)
     st.session_state['submit_view'] = 0
     st.session_state.task_4_submit_count += 1
+    st.session_state['store_data'] = 0
 
 def click_retry():
+    st.session_state['paraharse_start_time'] = datetime.datetime.now()
     st.session_state['submit_view'] = 1
 
 def click_next():

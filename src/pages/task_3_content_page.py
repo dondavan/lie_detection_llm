@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-from utility import chatloop, load_statements, load_statements_2
-import time
+from utility import chatloop, load_statements, load_statements_2, insert_to_sql
+import datetime
 
 st.title("Training Task 3: Fool the AI with Constraints")
 
@@ -67,7 +67,7 @@ input_container = st.empty()
 submit_container = st.empty()
 input_txt = input_container.text_area("Write your text below:", height=250)
 nav_col1, nav_col2 = st.columns(2,gap="medium")
-st.button("Submit Task 4",on_click=goto_exp_step)
+st.button("Submit Task",on_click=goto_exp_step)
 
 # Page data
 paraphrase_classification = "X"
@@ -77,13 +77,13 @@ classification_score = -1
 if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
     statements = load_statements_2()  
     st.session_state['store_data'] = 0
-    st.session_state['statement_id'] = statements['index']
     truthful_statements = statements[statements['condition'] == 'truthful']  
     random_statement = truthful_statements.iloc[3]  # Select the first statement to ensure consistency
     statement_text = random_statement['text_truncated']
     condition = random_statement['condition']
 
     # Save states
+    st.session_state['statement_id'] = random_statement['index']
     st.session_state['current_ori_statement'] = statement_text
     st.session_state['current_ori_statement_condition'] = condition
 
