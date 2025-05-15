@@ -45,3 +45,10 @@ It should be : 0 = deceptive, 1 = truthful
 distill-bert : 1 = deceptive, 0 = truthful
 Data set : deceptive, truthful
 
+
+
+# How to deploy to data collection
+1. under /data folder, run
+> python3 reset_statement_count.py
+
+2. 
