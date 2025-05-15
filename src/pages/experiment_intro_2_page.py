@@ -17,12 +17,12 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     text_container_1.markdown(f"**Original statement:** {st.session_state['current_ori_statement']}")
    
     feedback_container.markdown(
-        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 0 else 'Deceptive'}**.\n"
+        f"The AI classifies this statement as **{'Truthful' if paraphrase_classification == 1 else 'Deceptive'}**.\n"
         f"Confidence Score: **{classification_score:.2f}%**"
     )
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
-    opposite_classification = 'Deceptive' if paraphrase_classification == 0 else 'Truthful'
+    opposite_classification = 'Deceptive' if paraphrase_classification == 1 else 'Truthful'
     text_container_2.markdown(
         f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
         "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
