@@ -57,19 +57,6 @@ if 'goto_step_page' in st.session_state and st.session_state['goto_step_page'] =
 if 'main_task_2_submit_count' not in st.session_state:
     st.session_state.main_task_2_submit_count = 0
 
-# Page description
-text_container_1 = st.empty()
-feedback_container = st.empty()
-progr_cont = st.empty()
-text_container_2 = st.empty()
-text_container_3 = st.empty()
-text_container_4 = st.empty()
-input_container = st.empty()
-submit_container = st.empty()
-input_txt = input_container.text_area("Write your text below:", height=250)
-nav_col1, nav_col2 = st.columns(2,gap="medium")
-st.button("Submit",on_click=goto_exp_step)
-
 # Page data
 paraphrase_classification = "X"
 classification_score = -1
@@ -90,6 +77,20 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
 
 # Initial classification
 paraphrase_classification, classification_score = chatloop(frase=str(st.session_state['current_ori_statement']))
+
+# Page description
+text_container_1 = st.empty()
+feedback_container = st.empty()
+progr_cont = st.empty()
+text_container_2 = st.empty()
+text_container_3 = st.empty()
+text_container_4 = st.empty()
+input_container = st.empty()
+submit_container = st.empty()
+input_txt = input_container.text_area("Write your text below:", height=250, placeholder=st.session_state['current_ori_statement'])
+nav_col1, nav_col2 = st.columns(2,gap="medium")
+st.button("Submit",on_click=goto_exp_step)
+
 # Display instruction
 load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, text_container_4, input_container,submit_container,
                 paraphrase_classification = paraphrase_classification,

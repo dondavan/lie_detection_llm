@@ -107,3 +107,30 @@ def insert_to_sql(parameters):
 
         # commit transactions
         db_conn.commit()
+
+def insert_to_sql_feedback(parameters):
+
+    pool = sqlalchemy.create_engine(
+    "mysql+pymysql://",
+    creator=getconn,
+    )
+
+    '''
+    pool = sqlalchemy.create_engine(
+    "mysql+pymysql://paraphraseluca:papihugh@34.13.217.210:3306/demo",
+    creator=getconn,
+    )
+    '''
+    
+    with pool.connect() as db_conn:
+        # insert data into our ratings table
+        insert_stmt = sqlalchemy.text(
+            "INSERT INTO feedback_table (pid, motivation_scale, difficulty_scale, strategies, feedback) "
+            "VALUES (:pid, :motivation_scale, :difficulty_scale, :strategies, :feedback)",
+        )
+
+        # insert entries into table
+        db_conn.execute(insert_stmt, parameters=parameters)
+
+        # commit transactions
+        db_conn.commit()
