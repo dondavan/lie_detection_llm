@@ -89,6 +89,7 @@ def click_submit():
     st.session_state['current_repharsed_text'] = str(input_txt)
     st.session_state['submit_view'] = 0
     st.session_state.main_task_1_submit_count += 1
+    st.session_state['store_data'] = 0
     
 
 def click_retry():
