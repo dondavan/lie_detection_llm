@@ -1,10 +1,11 @@
 import streamlit as st
 from utility import chatloop
 
-st.title("Task 1: Write a Lie")
-st.write("**Please write a lie.**")
+st.title("Training Task 1: Write a Lie or a Truth")
+st.write("**Please write a lie or a truth.**")
 
 st.write("A lie is a statement of false information intended to deceive or mislead the receiver.")
+st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
 st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies lies.")
 
 # Initialize submission count in session state
@@ -21,7 +22,7 @@ progr_cont = st.empty()
 user_input = input_container.text_area("Write your statement here:")
 
 # Submit button to process the input
-if submit_cont.button("Submit Task 1"):
+if submit_cont.button("Submit"):
     if st.session_state.task_1_submit_count < 5:  # Check if the limit is reached
         if user_input.strip():  # Ensure the input is not empty
             st.session_state.task_1_input = user_input
@@ -30,7 +31,7 @@ if submit_cont.button("Submit Task 1"):
             risposta, prob = chatloop(user_input)
             feedback_container.markdown(
                 f"### Model Feedback\n"
-                f"The model predicts that your statement is classified as **{'Truthful' if risposta == 1 else 'Deceptive'}**.\n"
+                f"The model predicts that your statement is classified as **{'TRUTHFUL' if risposta == 1 else 'DECEPTIVE'}**.\n"
                 f"**Confidence Score:** {prob:.2f}%"
             )
             progr_cont.progress(int(prob))  # Display progress bar for confidence score
