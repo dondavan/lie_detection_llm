@@ -98,7 +98,7 @@ def insert_to_sql(parameters):
     with pool.connect() as db_conn:
         # insert data into our ratings table
         insert_stmt = sqlalchemy.text(
-            "INSERT INTO testing_table_time (pid, os_id, os, os_c, os_cp, paras, paras_c, paras_cp, start_time, end_time) "
+            "INSERT INTO statement_table_production (pid, os_id, os, os_c, os_cp, paras, paras_c, paras_cp, start_time, end_time) "
             "VALUES (:pid, :os_id, :os, :os_c, :os_cp, :paras, :paras_c, :paras_cp, :start_time, :end_time)",
         )
 
@@ -125,7 +125,7 @@ def insert_to_sql_feedback(parameters):
     with pool.connect() as db_conn:
         # insert data into our ratings table
         insert_stmt = sqlalchemy.text(
-            "INSERT INTO feedback_table (pid, motivation_scale, difficulty_scale, strategies, feedback) "
+            "INSERT INTO feedback_table_production (pid, motivation_scale, difficulty_scale, strategies, feedback) "
             "VALUES (:pid, :motivation_scale, :difficulty_scale, :strategies, :feedback)",
         )
 
