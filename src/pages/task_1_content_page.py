@@ -2,12 +2,12 @@ import streamlit as st
 from utility import chatloop, insert_to_sql
 import datetime
 
-st.title("Training Task 1: Write a Lie or a Truth")
-st.write("**Please write a lie or a truth.**")
+st.title("Training Phase 1: Write a Lie or a Truth")
+st.write("**Please write a deceptive or a truthful statement.**")
 
 st.write("A lie is a statement of false information intended to deceive or mislead the receiver.")
 st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
-st.write("**Note:** This is an exploratory page. You can submit multiple statements (maximum 5) before clicking next. To resubmit, first delete your previous statement, then click 'Submit' again. This allows you to explore how the AI classifies lies.")
+st.write("**Note:** You can submit up to 5 statements before proceeding. When you click 'Submit', you will receive feedback from the AI model and see the real predictions of the model for your statement.")
 
 
 st.session_state['paraharse_start_time'] = datetime.datetime.now()
@@ -64,7 +64,7 @@ if submit_cont.button("Submit"):
             st.info(f"Submission {st.session_state.task_1_submit_count}/5")
             
         else:
-            st.warning("Please write a lie before submitting.")
+            st.warning("Please write a deceptive or truthful statement before submitting.")
     else:
         st.error("You have reached the maximum number of submissions (5). Please click 'Next' to proceed.")
         

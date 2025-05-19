@@ -3,7 +3,7 @@ import pandas as pd
 from utility import chatloop, load_statements, load_statements_2, insert_to_sql
 import datetime
 
-st.title("Training Task 2: Fool the AI")
+st.title("Training Phase 2: Fool the AI")
 
 def load_instruction(text_container_1, feedback_container, progr_cont, text_container_2, text_container_3, input_container, submit_container, paraphrase_classfication="X", classfication_score=-1):
     # Display the statement and instructions
@@ -22,8 +22,8 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     )
     progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
 
-    text_container_2.markdown(f"Rewrite this statement so that it appears **TRUTHFUL** to the AI. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
-    text_container_3.markdown(f"**NOTE:** Due to delay with the AI model, you have to click the submit button a second time after a brief period.")
+    text_container_2.markdown(f"Rewrite this statement so that it appears **TRUTHFUL** to the AI. You can submit up to 5 attempts.")
+    text_container_3.markdown(f"**IMPORTANT:** Due to delay with live feedback from the AI model, you have to click the submit button a second time after a brief period.")
 
     st.session_state['new_statement'] = 0
 

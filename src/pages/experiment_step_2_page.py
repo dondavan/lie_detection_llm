@@ -69,7 +69,8 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     if 'submit_view' in st.session_state and st.session_state['submit_view'] == 1:
         text_container_3.markdown(
             f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
-            "Please maintain the statement's **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent, and readable."
+            "Please maintain the statement's **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent, and readable.\n"
+            "\n**IMPORTANT:** Due to delay with the live feedback from the AI model, you have to click the submit button a second time after a brief period."
         )
     # Return classifications to determine button visibility
     return ori_classification, paraphrase_classification 
@@ -82,7 +83,7 @@ def click_submit():
     original_tokens = len(st.session_state['current_ori_statement'].split())
     input_tokens = len(input_txt.split())
     if abs(input_tokens - original_tokens) > 20:  # Check if the input is within 20 tokens of the original
-        st.warning(f"Your rewritten statement must be within 20 words of the original statement's length ({original_tokens} words). Your input has {input_tokens} words.")
+        st.warning(f"Your rewritten statement must be within 20 words of the original statement's length (i.e., {original_tokens} +/- 20 words). Your input has {input_tokens} words.")
         return
     
     st.session_state['current_repharsed_text'] = str(input_txt)

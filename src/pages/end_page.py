@@ -1,13 +1,13 @@
 import streamlit as st
 
 st.title("End of Study")
-st.write("Thank you for participanting in our study. You have exited the study.")
+st.write("Thank you for participanting in our study.")
 st.subheader("Debriefing")
-st.write("""This study investigated how robust automated deception classifiers are to rewrites of the original statements. 
-        These rewrites will be fed into the AI to investigate how its performance differs from the original statements.
-        Further, we will investigate how people constructed these paraphrases. 
-        If you have any questions, feel free to contact us at:  
-        bennett.kleinberg@tilburguniversity.edu """)
+st.write(
+    """This study investigated how humans (you) modify statements in a live human-AI interaction.
+
+We will compare these human modifications with modifications done by a large language model to understand how an AI model can best be misled. Consequently, we aim to use these insights to develop more secure and robust AI classification systems."""
+)
 st.write("Thank you for your valuable contribution.")
 st.write("You will now be redirected to Prolific.")
 
