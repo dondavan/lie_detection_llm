@@ -23,7 +23,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     progr_cont.progress(int(classification_score))  # Display progress bar for credibility score
 
     text_container_2.markdown(
-        f"Rewrite this statement so that it appears **{condition_2}** to the AI.\n"
+        f"Rewrite this statement so that it appears **DECEPTIVE** to the AI.\n"
         "Please maintain the statements **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent and readable.\n"
         "You have 5 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())

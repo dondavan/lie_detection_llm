@@ -22,7 +22,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
     )
     progr_cont.progress(int(classfication_score))  # Display progress bar for credibility score
 
-    text_container_2.markdown(f"Rewrite this statement so that it appears **{condition_2}** to the AI. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
+    text_container_2.markdown(f"Rewrite this statement so that it appears **TRUTHFUL** to the AI. This is an exploratory task, and you can submit multiple rewrites (maximum 5) before clicking next.")
     text_container_3.markdown(f"**NOTE:** Due to delay with the AI model, you have to click the submit button a second time after a brief period.")
 
     st.session_state['new_statement'] = 0
