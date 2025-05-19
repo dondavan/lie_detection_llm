@@ -32,7 +32,7 @@ with col1:
     if st.button("Accept"):
         st.session_state['prolific_id'] = st.query_params.get("PROLIFIC_PID", "no_prolific_id")
         
-        if st.session_state['prolific_id'] == None :
+        if st.session_state['prolific_id'] == "no_prolific_id" :
             st.session_state['pid'] = str(uuid.uuid4())
         else:
             st.session_state['pid'] = st.session_state['prolific_id']
