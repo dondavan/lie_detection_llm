@@ -27,7 +27,7 @@ pool = sqlalchemy.create_engine(
 
 Header = ["id","pid","motivation_scale","difficulty_scale","strategies","feedback"]
 
-table_name = "feedback_table"
+table_name = "feedback_table_production"
 
 def query(pool,table_name):
     with pool.connect() as db_conn:
