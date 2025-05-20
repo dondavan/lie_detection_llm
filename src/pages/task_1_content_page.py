@@ -36,22 +36,24 @@ if submit_cont.button("Submit"):
             start_time = st.session_state['paraharse_start_time'].strftime('%Y-%m-%d %H:%M:%S')
             end_time = st.session_state['paraharse_end_time'].strftime('%Y-%m-%d %H:%M:%S')
 
+            pid = st.session_state['pid']
+            
+            # Generate feedback using the model
+            risposta, prob = chatloop(user_input)
             # Insert into cloud sql
-            parameters = {  "pid": 'task1_dummy',
+            parameters = {  "pid": pid,
                             "os_id": 'task1_dummy',
                             "os": 'task1_dummy',
                             "os_c": -1,
                             "os_cp": -1,
                             "paras":st.session_state['current_repharsed_text'],
-                            "paras_c": -1,
-                            "paras_cp": -1,
+                            "paras_c": risposta,
+                            "paras_cp": prob,
                             "start_time":start_time,
                             "end_time":end_time}
             
             insert_to_sql(parameters)
 
-            # Generate feedback using the model
-            risposta, prob = chatloop(user_input)
             feedback_container.markdown(
                 f"### Model Feedback\n"
                 f"The model predicts that your statement is classified as **{'TRUTHFUL' if risposta == 1 else 'DECEPTIVE'}**.\n"
