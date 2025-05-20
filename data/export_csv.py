@@ -26,7 +26,7 @@ pool = sqlalchemy.create_engine(
 
 Header = ["id","pid","os_id","os","os_c","os_cp","paras","paras_c", "paras_cp","start_time","end_time"]
 
-table_name = "testing_table_time"
+table_name = "statement_table_production"
 
 def query(pool,table_name):
     with pool.connect() as db_conn:
