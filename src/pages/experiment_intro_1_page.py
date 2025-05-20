@@ -78,26 +78,6 @@ if 'new_statement' not in st.session_state or st.session_state['new_statement'] 
 
 # Initial classification
 paraphrase_classification, classification_score = chatloop(frase=str(st.session_state['current_ori_statement']))
-# Page data
-paraphrase_classification = "X"
-classification_score = -1
-
-# Load statements and select a random one
-if 'new_statement' not in st.session_state or st.session_state['new_statement'] == 1:
-    statement = load_statements()
-    st.session_state['store_data'] = 0
-    #random_statement = statements.sample(n=1).iloc[0]
-    statement_text = statement['text_truncated']
-    condition = statement['condition']
-
-    #states
-    st.session_state['statement_id'] = statement['index']
-    st.session_state['current_ori_statement'] = statement_text
-    st.session_state['current_ori_statement_condition'] = condition
-    st.session_state['paraharse_start_time'] = datetime.datetime.now()
-
-# Initial classification
-paraphrase_classification, classification_score = chatloop(frase=str(st.session_state['current_ori_statement']))
 
 # Page description
 text_container_1 = st.empty()
