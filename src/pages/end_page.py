@@ -12,5 +12,5 @@ st.write("Thank you for your valuable contribution.")
 st.write("You will now be redirected to Prolific.")
 
 if st.button("Return to Prolific"):
-        prolific_home_url = "https://app.prolific.com/submissions/complete?cc=C166MB7Y"
+        prolific_home_url = "https://app.prolific.com/submissions/complete?cc=CPSXYUWC"
         st.markdown(f"<a href='{prolific_home_url}' target='_blank'>Click here if you're not automatically redirected</a>", unsafe_allow_html=True)
