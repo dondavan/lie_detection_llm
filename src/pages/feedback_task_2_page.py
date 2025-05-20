@@ -3,7 +3,7 @@ import pandas as pd
 from utility import chatloop, load_statements, insert_to_sql
 import datetime
 
-st.title("Training Task 2: Fool the AI")
+st.title("Training Phase 2: Fool the AI")
 
 def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
