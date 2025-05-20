@@ -25,7 +25,7 @@ st.write("**2. How difficult did you find the study?**")
 st.session_state.difficulty_scale = st.slider("0 = Very easy, 10 = Very difficult", min_value=0, max_value=10, value=st.session_state.difficulty_scale, step=1)
 
 # Question 3: Strategies
-st.write("What strategies did you use to complete the task and flip the class the AI predicted the statement to belong to?")
+st.write("We are keen to learn from your work. Which strategies did you use to complete the task to manipulate the statements in such a way that the AI is being misled?")
 st.session_state.strategies = st.text_area("Strategies", value=st.session_state.strategies, height=200)
 
 # Optional Feedback
