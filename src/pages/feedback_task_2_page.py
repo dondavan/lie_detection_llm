@@ -5,7 +5,7 @@ import datetime
 
 st.title("Training Phase 2: Fool the AI")
 
-def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col_1, nav_col_2,
+def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, text_container_3, input_container, submit_container, nav_col_1, nav_col_2,
                   current_ori_statement, current_repharsed_text):
     # Classification for the original statement
     ori_classification, ori_score = chatloop(frase=current_ori_statement)
@@ -61,6 +61,8 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
     )
     progr_cont_2.progress(int(classfication_score)) 
 
+    text_container_3.markdown(f"**IMPORTANT:** If the page does not respond, press submit again. DO NOT REFRESH THE PAGE.")
+
 def click_submit():
     if not input_txt.strip():  # Check if the input is empty
         st.warning("Please write a statement before submitting.")
@@ -92,6 +94,7 @@ progr_cont_1 = st.empty()
 text_container_2 = st.empty()
 feedback_container_2 = st.empty()
 progr_cont_2 = st.empty()
+text_container_3 = st.empty()
 input_container = st.empty()
 submit_container = st.empty()
 nav_col1, nav_col2 = st.columns(2, gap="medium")
@@ -101,7 +104,7 @@ current_ori_statement = st.session_state['current_ori_statement']
 current_repharsed_text = st.session_state['current_repharsed_text']
 
 # Display feedback
-feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, input_container, submit_container, nav_col1, nav_col2,
+feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_container_2, feedback_container_2, progr_cont_2, text_container_3, input_container, submit_container, nav_col1, nav_col2,
               current_ori_statement=current_ori_statement, 
               current_repharsed_text=current_repharsed_text)
 

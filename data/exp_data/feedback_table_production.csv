@@ -1,0 +1,14 @@
+id,pid,motivation_scale,difficulty_scale,strategies,feedback
+1,6662b3516ee05c96ddcab291,7.0,9.0,"The first question I did had me trying multiple times, the next thing i tried was paraphrasing sentences, that also didn't work too well",
+2,67ef2b71416319fc29b5d49d,6.0,8.0,"Hedging and uncertainty markers
+Conversational fillers",
+3,63d9d5072e083033fc895df1,9.0,10.0,make my statements sound more natural then the previous,"this study takes way to long and i am not compensated enough to be retrying up to 10 times trying different tones and everything really, this has been somewhat of a waste of time"
+4,66bdfd3d194a4a7eb2208d77,10.0,10.0,"When trying to convince the AI that a deceptive statement was truthful, I tried my best to add more specific details to make it seem like a real life event I was knowledgeable about from past experience.
+
+When trying to convince the AI that a truthful statement was deceptive, I removed details and tried to sound more unsure of myself using language like ""I think"" and ""probably"", so that the statement seemed less credible.","This survey took way longer than anticipated. The last statement that I had to rewrite was particularly difficult, as no matter how many details I added, the AI kept reading my statement as deceptive. I was honestly exhausted by the end of it. I suggest offering a higher compensation for participants because this study requires lots of effort."
+5,6743c8da977b0d274dad1fc2,9.0,10.0,"To make statements sound deceptive, I used vague language, exaggerated slang, hedging phrases, and subtle inconsistencies to reduce credibility. For truthfulness, I focused on clear, precise, consistent details, corrected grammar, and maintained an authentic, sincere tone.",This study was quite lengthier than expected.
+6,65537e14439274fe5036b4d2,1.0,6.0,Sentence deletion and movement of words.  I found the task tricky so did not develop many strategies ,NA
+7,68293616d33902ce5a607c0f,10.0,5.0,"I made things sound believable by adding a touch of inconsistency, including some vague language, getting rid of specific emotions and making the tone sound uncertain.
+
+I used clarity, details and emotions to improve the statements so they seemed genuine and structured my statements logically.",
+8,6658c1d8934ec07966372945,9.0,6.0,"To mislead the AI, I adjusted emotional tone, varied specificity, added reflective thoughts, used natural speech patterns, and maintained coherence within word count limits.",The experiment was insightful and showed how small language changes can influence AI perception of truthfulness.
