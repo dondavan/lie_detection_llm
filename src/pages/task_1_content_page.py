@@ -26,7 +26,19 @@ progr_cont = st.empty()
 user_input = input_container.text_area("Write your statement here:")
 
 # Submit button to process the input
-if submit_cont.button("Submit"):
+if submit_cont.button("Submit",key="submit"):
+    st.markdown("""
+    <script>
+    const submitBtn = window.parent.document.querySelector('button[key="submit"]');
+    if (submitBtn) {
+        submitBtn.addEventListener('mousedown', function() {
+            const textareas = window.parent.document.querySelectorAll('textarea');
+            textareas.forEach(t => t.blur());
+        });
+    }
+    </script>
+    """, unsafe_allow_html=True)
+
     if st.session_state.task_1_submit_count < 5:  # Check if the limit is reached
         if user_input.strip():  # Ensure the input is not empty
             st.session_state['current_repharsed_text'] = user_input

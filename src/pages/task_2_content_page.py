@@ -77,8 +77,21 @@ input_container = st.empty()
 submit_container = st.empty()
 input_txt = input_container.text_area("Write your text below:", height=250, placeholder=st.session_state['current_ori_statement'])
 nav_col1, nav_col2 = st.columns(2,gap="medium")
-st.button("Submit Task",on_click=goto_exp_step)
+st.button("Submit Task",on_click=goto_exp_step, key="submit")
 
+
+
+st.markdown("""
+    <script>
+    const submitBtn = window.parent.document.querySelector('button[key="submit"]');
+    if (submitBtn) {
+        submitBtn.addEventListener('mousedown', function() {
+            const textareas = window.parent.document.querySelectorAll('textarea');
+            textareas.forEach(t => t.blur());
+        });
+    }
+    </script>
+    """, unsafe_allow_html=True)
 
 
 # Display instruction

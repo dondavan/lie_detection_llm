@@ -39,4 +39,4 @@ def query(pool,table_name):
         csv_writer.writerow(Header)
         csv_writer.writerows(results)
 
-query(pool,table_name)
+query(pool,tab

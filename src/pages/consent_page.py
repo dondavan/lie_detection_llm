@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit.components.v1 import html
 
 st.title("Informed Consent")
 
@@ -37,3 +38,13 @@ with col3:
     if st.button("Deny"):
         st.session_state.consent_data = "Denied"
         st.switch_page("pages/end_page.py")
+
+# Define your javascript
+my_js = """
+alert("Refreshing or navigating away will cause you to lose your progress. Only use the buttons provided in the app to continue.");
+"""
+
+# Wrapt the javascript as html code
+my_html = f"<script>{my_js}</script>"
+
+html(my_html)
