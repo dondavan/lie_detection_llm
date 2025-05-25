@@ -72,7 +72,7 @@ def feedback_page(text_container_1, feedback_container_1, progr_cont_1, text_con
         text_container_3.markdown(
             f"Rewrite this statement so that it appears **{opposite_classification}** to the AI.\n"
             "Please maintain the statement's **original meaning**, ensure that it is **grammatically correct**, and appears **natural**. A **natural** statement is coherent, fluent, and readable.\n"
-            "\n**IMPORTANT:** Due to delay with the live feedback from the AI model, you have to click the submit button a second time after a brief period."
+            "\n**IMPORTANT:** If the page does not respond, press submit again. DO NOT REFRESH THE PAGE."
         )
 
     # Return classifications to determine button visibility

@@ -8,6 +8,7 @@ st.write("**Please write a deceptive or a truthful statement.**")
 st.write("A lie is a statement of false information intended to deceive or mislead the receiver.")
 st.write("A truth is a statement that presents information that is believed to be correct with no intention to mislead the receiver.")
 st.write("**Note:** You can submit up to 5 statements before proceeding. When you click 'Submit', you will receive feedback from the AI model and see the real predictions of the model for your statement.")
+st.write("**IMPORTANT:** If the page does not respond, press submit again. DO NOT REFRESH THE PAGE.")
 
 
 st.session_state['paraharse_start_time'] = datetime.datetime.now()

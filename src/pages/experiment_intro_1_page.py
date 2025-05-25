@@ -30,7 +30,7 @@ def load_instruction(text_container_1, feedback_container, progr_cont, text_cont
         "You have 10 attempts to rewrite. If you manage to flip the class (truthful to deceptive or deceptive to truthful) before that, please proceed to the next page.")
     original_tokens = len(st.session_state['current_ori_statement'].split())
     text_container_3.markdown(f"Your rewritten statement must be within 20 words of the original statement's length **(i.e., {original_tokens} +/- 20 words)**.")
-    text_container_4.markdown(f"**IMPORTANT:** Due to delay with the live feedback from the AI model, you have to click the submit button a second time after a brief period.")
+    text_container_4.markdown(f"**IMPORTANT:** If the page does not respond, press submit again. DO NOT REFRESH THE PAGE.")
 
     st.session_state['new_statement'] = 0
 
